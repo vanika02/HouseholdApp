@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+
+<form action="" class="form" method="post" enctype="multipart/form-data">
+    <fieldset class="custom-fieldset">
+        <legend class="text-center">
+            <h1>Register as a Professional</h1>
+        </legend>
+        <div class="form-group">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" id="username" name="username" required class="form-control custom-input">
+        </div>
+        <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" required class="form-control custom-input">
+        </div>
+        <div class="form-group">
+            <label for="confirm_password" class="form-label">Confirm Password</label>
+            <input type="password" name="confirm_password" required class="form-control custom-input">
+        </div>
+        <div class="form-group">
+            <label for="email" class="form-label">Email-ID</label>
+            <input type="email" id="email" name="email" class="form-control custom-input">
+        </div>
+        <div class="form-group">
+            <label for="fullname" class="form-label">Full-Name</label>
+            <input type="text" id="fullname" name="fullname" class="form-control custom-input">
+        </div>
+        <div class="form-group">
+            <label for="address" class="form-label">Address</label>
+            <textarea id="address" name="address" required class="form-control custom-input"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="document" class="form-label">Document</label>
+            <input type="file" id="document" name="document" class="form-control custom-input" accept="application/pdf">
+        </div>
+        
+        <div class="form-group">
+            <label for="service" class="form-label">Register for service</label>
+            <select name="service" id="service" class="form-control">
+                <option value="" disabled selected>Select a service</option>
+                {% for service in services %}
+                    <option value="{{ service.id }}">{{ service.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="experience" class="form-label">Experience (in Yrs)</label>
+            <input type="number" id="exp" name="experience" min="0" max="100" required class="form-control custom-input">
+        </div>
+        <div class="form-group">
+            <label for="price" class="form-label">Service Price</label>
+            <input type="number" id="price" name="price" class="form-control custom-input" placeholder="Enter price" min="0" step="0.01">
+        </div>
+        
+        <div class="form-group">
+            <label for="pin" class="form-label">Pin Code</label>
+            <input type="text" name="pin" id="pin" required pattern="\d{6}" title="Pin code must be of 6 digits" required class="form-control custom-input">
+        </div>
+        <div class="form-group">
+            <label for="desc" class="form-label">Description</label>
+            <textarea name="desc" id="desc" cols="10" rows="4" required class="form-control custom-input" placeholder="Briefly describe your package or specialty"></textarea>
+        </div>
+        <div class="form-group text-center mt-3">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}
+

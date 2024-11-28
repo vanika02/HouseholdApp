@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Book Service
+{% endblock %}
+
+{% block content %}
+
+<form method="POST" action="{{ url_for('book_service', professional_id=professional.id, service_id=service.id) }}">
+    <fieldset class="custom-fieldset">
+        <legend class="text-center">
+            <h1>Book {{service.name}} Service </h1>
+        </legend>
+        <div class="mb-3">
+            <label for="service_name" class="form-label">Service</label>
+            <input type="text" class="form-control custom-input" name="service_name" value="{{professional.description}}" readonly>
+
+            <label for="service_name" class="form-label">Location</label>
+            <input type="text" class="form-control custom-input" name="location" required>
+
+            <label for="service_name" class="form-label">Pin-Code</label>
+            <input type="text" class="form-control custom-input" name="pin" required>
+
+            <label for="price" class="form-label">Price</label>
+            <input type="text" class="form-control custom-input" name="price" value="{{ professional.service_price + professional.service.base_price }}" readonly>
+
+            <label for="time" class="form-label">Time Required</label>
+            <input type="text" class="form-control custom-input" name="time" value="{{ professional.service.time_required }}" readonly>
+
+            <label for="date_of_request" class="form-label">Select or confirm Date</label>
+            <input type="date" class="form-control custom-input" id="date_of_request" name="date_of_request" value="{{current_date}}" required>
+
+        </div>
+        <div class="form-group text-center mt-3">
+            <button type="submit" class="btn btn-primary">Confirm Booking</button>
+            <a href="{{ url_for('customer_dashboard') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block title %} Search Results {% endblock %}
+
+{% block content %}
+<h1>Search Results</h1>
+
+{% if results %}
+    <table class="table">
+        <thead>
+            <tr>
+                {% if user_role == 'admin' %}
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                {% elif user_role == 'customer' %}
+                    <th>Service Name</th>
+                    <th>Pin Code</th>
+                    <th>Price</th>
+                {% elif user_role == 'professional' %}
+                    <th>Request ID</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    {% if user_role == 'admin' %}
+                        <td>{{ result.id }}</td>
+                        <td>{{ result.name }}</td>
+                        <td>{{ result.status }}</td>
+                        <td>
+                            <a href="{{ url_for('view_details', id=result.id) }}" class="btn btn-primary">View</a>
+                        </td>
+                    {% elif user_role == 'customer' %}
+                        <td>{{ result.name }}</td>
+                        <td>{{ result.pin_code }}</td>
+                        <td>{{ result.price }}</td>
+                    {% elif user_role == 'professional' %}
+                        <td>{{ result.id }}</td>
+                        <td>{{ result.status }}</td>
+                        <td>{{ result.date_of_request }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+     {{ professional.fullname | title }} Details
+{% endblock %}
+{% block content %}
+<h1 class="display-1 text-center mb-4">{{professional.fullname | title }} Details</h1>
+<h2 class="display-2 mb-4">Details:</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Professional ID</th>
+                <th>Service Name</th>
+                <th>E-mail ID</th>
+                <th>Address</th>
+                <th>Full Name</th>
+                <th>Pin-code</th>
+                <th>Document</th>
+                <th>Description</th>
+                <th>Experience</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{professional.id}}</td>
+                <td>{{professional.service.name}}</td>
+                <td>{{professional.email_id}}</td>
+                <td>{{professional.address}}</td>
+                <td>{{professional.fullname | title}}</td>
+                <td>{{professional.pin_code}}</td>
+                <td>
+                    <a href="{{ url_for('static', filename='files/' + professional.document) }}" target="_blank" class="btn btn-link">
+                        View Document
+                    </a>
+                </td>
+                <td>{{professional.description}}</td>
+                <td>{{professional.experience}}</td>
+                <td>
+                    {% if professional.user.is_verified %}
+                        <a href="" class="btn btn-success ">
+                            <i class="fas fa-check"></i> Approved
+                        </a>
+                    {% else %}
+                        <a href="{{url_for('approve_professional', id=professional.id)}}" class="btn btn-primary mt-2 ">
+                            <i class="fas fa-check"></i> Approve
+                        </a>
+                    {% endif %}
+                    {% if professional.is_rejected %}
+                        <a href="" class="btn btn-warning mt-2">
+                            <i class="fas fa-times"></i> Rejected
+                        </a>
+                    {% elif not professional.is_rejected %}
+                            <a href="{{url_for('reject_professional', id=professional.id)}}" class="btn btn-warning mt-2">
+                                <i class="fas fa-times"></i> Reject
+                            </a>
+                    {% endif %}
+                    {%if professional.user.is_blocked %}
+                        <a href="" class="btn btn-danger mt-2">
+                            <i class="fas fa-ban"></i> Blocked
+                        </a>
+                    {% else %}
+                        <a href="{{url_for('block_professional', id=professional.id)}}" class="btn btn-danger mt-2">
+                            <i class="fas fa-ban"></i> Block
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div style="margin-top: 50px; text-align: center;">
+    <!-- Back to Dashboard Button -->
+    <a href="{{ url_for('admin_dashboard') }}">
+        <button style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Back to Dashboard
+        </button>
+    </a>
+  </div>
+  
+{% endblock %}

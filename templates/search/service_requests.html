@@ -1,0 +1,30 @@
+<!-- templates/search/service_requests.html -->
+{% if service_requests %}
+    <h2 class="display-2">Service Requests:</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Service-request ID</th>
+                <th>Assigned Professional</th>
+                <th>Customer ID</th>
+                <th>Date of Request</th>
+                <th>Date of Completion</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service_request in service_requests %}
+            <tr>
+                <td>{{ service_request.id }}</td>
+                <td>{{ service_request.professional_id }}</td>
+                <td>{{ service_request.customer_id }}</td>
+                <td>{{ service_request.date_of_request }}</td>
+                <td>{{ service_request.date_of_completion }}</td>
+                <td>{{ service_request.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No service requests found.</p>
+{% endif %}

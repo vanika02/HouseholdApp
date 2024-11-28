@@ -1,0 +1,25 @@
+<div class="container my-5">
+    <h2 class="text-center">Services available in Pin Code: {{ query }}</h2>
+
+    {% if professionals%}
+        <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+            {% for professional in professionals %}
+
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="{{ url_for('static', filename=professional.image_file) }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ professional.fullname }}</h5>
+                            <p class="card-text">{{ professional.description }}</p>
+                            <p class="card-text"><strong>Time Required: </strong> {{ professional.service.time_required }}</p>
+                            <p class="card-text"><strong>Price: </strong>{{ professional.service_price + professional.service.base_price }}</p>
+                            <a href="{{ url_for('book_service', professional_id=professional.id, service_id = professional.service.id) }}" class="btn btn-primary">Book Service</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No services found for your search.</p>
+    {% endif %}
+</div>

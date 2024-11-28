@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+     {{professional.fullname}} Details
+{% endblock %}
+
+{% block content %}
+    <h1 class="display-1">Request Details</h1>
+    <h2 class="disply-2">Details:</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Service-Request ID</th>
+                <th>Service Name</th>
+                <th>Customer ID</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{service_request.id}}</td>
+                <td>{{professional.description}}</td>
+                <td>{{service_request.customer_id}}</td>
+                <td>{{professional.service_price + professional.service.base_price}}</td>
+                <td>
+                    <div>
+                        <form method="POST" action="{{ url_for('accept_request', id=service_request.id) }}">
+                            <button type="submit" class="btn btn-primary">Accept Request</button>
+                            <a href="{{ url_for('professional_dashboard') }}" class="btn btn-secondary">Cancel</a>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
+

@@ -1,0 +1,41 @@
+<!-- templates/search/professionals.html -->
+{% if professionals %}
+    <h2 class="display-2">Professionals:</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Professional ID</th>
+                <th>Professional Name</th>
+                <th>Service Offered</th>
+                <th>Experience (in yrs)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for professional in professionals %}
+            <tr>
+                <td>{{ professional.id }}</td>
+                <td>{{ professional.fullname }}</td>
+                <td>{{ professional.service.name }}</td>
+                <td>{{ professional.experience }}</td>
+                <td>
+                    <a href="{{ url_for('show_professional', id=professional.id) }}" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Show
+                    </a>
+                    <a href="{{ url_for('approve_professional', id=professional.id) }}" class="btn btn-primary">
+                        <i class="fas fa-check"></i> Approve
+                    </a>
+                    <a href="{{ url_for('reject_professional', id=professional.id) }}" class="btn btn-warning">
+                        <i class="fas fa-times"></i> Reject
+                    </a>
+                    <a href="{{ url_for('block_professional', id=professional.id) }}" class="btn btn-danger">
+                        <i class="fas fa-ban"></i> Block
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No professionals found.</p>
+{% endif %}

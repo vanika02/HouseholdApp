@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Edit Service
+{% endblock %}
+
+{% block content %}
+<h1>Change the Details of request</h1>
+
+<form method="POST" action="{{ url_for('book_service', professional_id=professional.id, service_id=service.id) }}">
+    <div class="mb-3">
+        <label for="service_name" class="form-label">Service</label>
+        <input type="text" class="form-control" name="service_name" value="{{professional.description}}" readonly>
+
+        <label for="service_name" class="form-label">Location</label>
+        <input type="text" class="form-control" name="location" value="{{service_request.location}" required>
+
+        <label for="service_name" class="form-label">Pin-Code</label>
+        <input type="text" class="form-control" name="pin" value="{{service_request.pin_code}}" required>
+
+
+        <label for="price" class="form-label">Price</label>
+        <input type="text" class="form-control" name="price" value="{{ professional.service_price + professional.service.base_price }}" readonly>
+
+        <label for="time" class="form-label">Time Required</label>
+        <input type="text" class="form-control" name="time" value="{{ professional.service.time_required }}" readonly>
+
+        <label for="date_of_request" class="form-label">Select or confirm Date</label>
+        <input type="date" class="form-control" id="date_of_request" name="date_of_request" value="{{current_date}}" required>
+
+    </div>
+    <button type="submit" class="btn btn-primary">Confirm Change</button>
+    <a href="{{ url_for('customer_dashboard') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

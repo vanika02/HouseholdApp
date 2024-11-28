@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Add Service
+{% endblock %}
+
+{% block content %}
+<h1 class="display-1">
+    Add Service
+</h1>
+
+<form action="{{ url_for('add_service') }}" method="POST" class="form">
+    <div class="form-group">
+        <label for="name" class="form-label">Service Name:</label>
+        <input type="text" id="name" name="name" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="price" class="form-label">Service Price:</label>
+        <input type="number" id="price" name="price"  step="0.1" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="time" class="form-label">Time-required:</label>
+        <input type="text" id="time" name="time" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="desc" class="form-label">Description</label>
+        <textarea name="desc" id="desc" cols="15" rows="4" class="form-control" placeholder="Briefly describe the service"></textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-plus"></i>
+            Add
+        </button>
+    </div>
+</form>
+<div style="margin-top: 50px; text-align: center;">
+    <!-- Back to Dashboard Button -->
+    <a href="{{ url_for('admin_dashboard') }}">
+        <button style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Back to Dashboard
+        </button>
+    </a>
+  </div>
+  
+{% endblock %}

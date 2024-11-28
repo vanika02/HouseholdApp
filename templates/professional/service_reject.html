@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Reject Service Request
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Reject Service Request</h2>
+
+    <p>Are you sure you want to reject the service request from {{ service_request.customer.firstname }} {{ service_request.customer.lastname }} for the service "{{ service_request.service.name }}"?</p>
+
+    <form method="POST">
+        {% if service_request.status == 'pending' %}
+            <button type="submit" class="btn btn-danger">Reject</button>
+        {% else %}
+            <p class="alert alert-warning">This request cannot be rejected as its status is {{ service_request.status | title }}.</p>
+        {% endif %}
+    </form>
+    
+    <!-- Corrected URL generation for rejection -->
+    <a href="{{ url_for('reject_request', service_request_id=service_request.id) }}" class="btn btn-danger">Reject</a>
+
+    <a href="{{ url_for('professional_dashboard', id=professional.id) }}" class="btn btn-secondary">Cancel</a>
+</div>
+{% endblock %}

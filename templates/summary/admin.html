@@ -1,0 +1,92 @@
+<div>
+  <!-- Service Requests Bar Chart -->
+  <div style="margin-top: 50px; text-align: center;">
+    <h1>Number of service request count per service</h1>
+    <canvas id="serviceChart" width="600" height="400"></canvas>
+  </div>
+  <!-- Rating Distribution Pie Chart -->
+  <div style="margin-top: 50px; text-align: center;">
+    <h1>Ratings count</h1>
+    <canvas id="ratingChart"></canvas>
+  </div>
+
+  <style>
+    #serviceChart, #ratingChart {
+      max-width: 600px;
+      max-height: 600px;
+      margin: 0 auto;
+      display: block;
+    }
+  </style>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    // Bar chart for service requests count
+    const ctx = document.getElementById('serviceChart');
+    const serviceNames = JSON.parse('{{ service_names | tojson | safe }}');
+    const requestCounts = JSON.parse('{{ request_counts | tojson | safe }}');
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: serviceNames,
+        datasets: [{
+          label: 'Number of Service Requests',
+          data: requestCounts,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)', // Light color for bars
+          borderColor: 'rgba(75, 192, 192, 1)',    // Darker color for bar borders
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Number of Requests'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Services'
+            }
+          }
+        }
+      }
+    });
+
+    // Pie chart for rating distribution
+    const ratingCtx = document.getElementById('ratingChart');
+    const ratingLabels = JSON.parse('{{ rating_labels | tojson | safe }}');
+    const ratingCounts = JSON.parse('{{ rating_counts | tojson | safe }}');
+
+    new Chart(ratingCtx, {
+      type: 'pie',
+      data: {
+        labels: ratingLabels,
+        datasets: [{
+          data: ratingCounts,
+          backgroundColor: [
+            'rgb(255, 99, 132)', // 1 Star
+            'rgb(255, 159, 64)', // 2 Stars
+            'rgb(255, 205, 86)', // 3 Stars
+            'rgb(75, 192, 192)', // 4 Stars
+            'rgb(54, 162, 235)'  // 5 Stars
+          ],
+          hoverOffset: 4
+        }]
+      }
+    });
+  </script>
+</div>
+<div style="margin-top: 50px; text-align: center;">
+  <!-- Back to Dashboard Button -->
+  <a href="{{ url_for('admin_dashboard') }}">
+      <button style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+          Back to Dashboard
+      </button>
+  </a>
+</div>

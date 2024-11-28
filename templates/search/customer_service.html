@@ -1,0 +1,22 @@
+<div class="container my-5">
+    <h2 class="text-center">Services found: {{ query }}</h2>
+
+    {% if services %}
+        <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+            {% for service in services %}
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="{{ url_for('static', filename=service.image_file) }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ service.name }}</h5>
+                            <p class="card-text">{{ service.description }}</p>
+                            <a href="{{ url_for('available_service', service_name=service.name) }}" class="btn btn-primary">View all Services</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No services found for your search.</p>
+    {% endif %}
+</div>

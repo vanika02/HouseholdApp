@@ -1,0 +1,74 @@
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="" method="GET">
+                <div class="input-group">
+                    {% if session.get('user_role') == "admin" %}
+                        <!-- Admin Search Bar -->
+                        <select name="search_type" class="form-select">
+                            <option value="services" {% if search_type == "services" %}selected{% endif %}>Services</option>
+                            <option value="professionals" {% if search_type == "professionals" %}selected{% endif %}>Professionals</option>
+                            <option value="service_requests" {% if search_type == "service_requests" %}selected{% endif %}>Service Requests</option>
+                        </select>
+                        <input type="text" 
+                               name="query" 
+                               id="query" 
+                               value="{{query}}" 
+                               class="form-control" 
+                               placeholder="Search by name, status (approved, rejected, not approved)">
+                    
+                    {% elif session.get('user_role') == "customer" %}
+                        <!-- Customer Search Bar -->
+                        <select name="search_type" class="form-select">
+                            <option value="services" {% if search_type == "services" %}selected{% endif %}>Service Name</option>
+                            <option value="pin_code" {% if search_type == "pin_code" %}selected{% endif %}>Pin-Code</option>
+                        </select>
+                        <input type="text" 
+                               name="query" 
+                               id="query" 
+                               value="{{ query }}" 
+                               class="form-control" 
+                               placeholder="service name or pin-code">
+                    
+                    {% elif session.get('user_role') == "professional" %}
+                        <!-- Professional Search Bar -->
+                        <select name="search_type" class="form-select" onchange="this.form.submit()">
+                            <option value="pin" {% if search_type == "pin" %}selected{% endif %}>Pin-Code</option>
+                            <option value="location" {% if search_type == "location" %}selected{% endif %}>Location</option>
+                            <option value="date" {% if search_type == "date" %}selected{% endif %}>Date</option>
+                            <option value="status" {% if search_type == "status" %}selected{% endif %}>Status</option>
+                        </select>
+                        {% if search_type == "date" %}
+                            <input type="date" 
+                                name="query" 
+                                id="date" 
+                                value="{{ query }}" 
+                                class="form-control">
+                        {% else %}
+                            <input type="text" 
+                                name="query" 
+                                id="query" 
+                                value="{{ query }}" 
+                                class="form-control" 
+                                placeholder="Enter {{search_type | capitalize}}">   
+                        {% endif %}            
+                    {% endif %}
+                    <a href="
+                    {% if session.get('user_role') == 'admin' %}
+                        {{ url_for('admin_dashboard') }}
+                    {% elif session.get('user_role') == 'customer' %}
+                        {{ url_for('customer_dashboard') }}
+                    {% elif session.get('user_role') == 'professional' %}
+                        {{ url_for('professional_dashboard') }}
+                    {% endif %}
+                  "class="btn btn-outline-danger">
+                        clear
+                    </a>
+                    <button class="btn btn-outline-primary" type="submit">
+                        <i class="fa fa-search"></i> Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
