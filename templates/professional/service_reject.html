@@ -17,10 +17,9 @@
             <p class="alert alert-warning">This request cannot be rejected as its status is {{ service_request.status | title }}.</p>
         {% endif %}
     </form>
-    
-    <!-- Corrected URL generation for rejection -->
-    <a href="{{ url_for('reject_request', service_request_id=service_request.id) }}" class="btn btn-danger">Reject</a>
 
+    <!-- Cancel button to return to the dashboard -->
     <a href="{{ url_for('professional_dashboard', id=professional.id) }}" class="btn btn-secondary">Cancel</a>
 </div>
 {% endblock %}
+

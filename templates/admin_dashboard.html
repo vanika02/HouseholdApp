@@ -81,18 +81,26 @@
                         <a href="{{ url_for('show_professional', id=professional.id) }}" class="btn btn-primary">
                             <i class="fas fa-search"></i> Show
                         </a>
-                        {% if not professional.user.is_verified %}
+                        {% if not professional.user.is_verified and not professional.user.is_rejected %}
                             <a href="{{ url_for('approve_professional', id=professional.id) }}" class="btn btn-primary">
                                 <i class="fas fa-check"></i> Approve
                             </a>
-                        {% else %}
+                        {% endif %}
+                        {% if professional.user.is_verified and not professional.user.is_rejected and not professional.user.is_blocked %}
                             <a href="{{ url_for('approve_professional', id=professional.id) }}" class="btn btn-success">
                                 <i class="fas fa-check"></i> Approved
                             </a>
                         {% endif %}
-                        <a href="{{ url_for('reject_professional', id=professional.id) }}" class="btn btn-warning">
-                            <i class="fas fa-times"></i> Reject
-                        </a>
+                        {% if not professional.user.is_rejected and not professional.user.is_blocked  %}
+                            <a href="{{ url_for('reject_professional', id=professional.id) }}" class="btn btn-warning">
+                                <i class="fas fa-times"></i> Reject
+                            </a>
+                        {% endif %}
+                        {% if professional.user.is_rejected and not professional.user.is_blocked  %}
+                            <a href="{{ url_for('reject_professional', id=professional.id) }}" class="btn btn-warning">
+                                <i class="fas fa-times"></i> Rejected
+                            </a>
+                        {% endif %}
                         {% if professional.user.is_blocked %}
                             <a href="{{ url_for('block_professional', id=professional.id) }}" class="btn btn-danger">
                                 <i class="fas fa-ban"></i> Blocked
@@ -102,12 +110,64 @@
                                 <i class="fas fa-ban"></i> Block
                             </a>
                         {% endif %}
+                            {% if professional.user.is_blocked %}
+                            <a href="{{ url_for('unblock_professional', id=professional.id) }}" class="btn btn-light">
+                                <i class="fas fa-ban"></i> Unblock
+                            </a>
+                    {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
             {% else %}
                 <tr>
                     <td colspan="5" class="text-center">No professionals found.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <h2 class="display-2">Customers:</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Customer ID</th>
+                <th>Customer Name</th>
+                <th>Email ID</th>
+                <th>Address</th>
+                <th>Pin-Code</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if customers %}
+                {% for customer in customers %}
+                <tr>
+                    <td>{{ customer.id }}</td>
+                    <td>{{ customer.fullname | title}}</td>
+                    <td>{{ customer.email_id }}</td>
+                    <td>{{ customer.address }}</td>
+                    <td>{{ customer.pin_code }}</td>
+                    <td>
+                        {% if customer.user.is_blocked %}
+                            <a href="{{ url_for('block_customer', id=customer.id) }}" class="btn btn-danger">
+                                <i class="fas fa-ban"></i> Blocked
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('block_customer', id=customer.id) }}" class="btn btn-danger">
+                                <i class="fas fa-ban"></i> Block
+                            </a>
+                        {% endif %}
+                            {% if customer.user.is_blocked %}
+                            <a href="{{ url_for('unblock_customer', id=customer.id) }}" class="btn btn-light">
+                                <i class="fas fa-ban"></i> Unblock
+                            </a>
+                    {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">No Customers found.</td>
                 </tr>
             {% endif %}
         </tbody>

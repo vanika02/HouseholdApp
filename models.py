@@ -13,16 +13,16 @@ class User(db.Model):
     is_verified = db.Column(db.Boolean, default=False, nullable=False) # False means not verified and True means verified
    
     # Relationships: one-to-one with customer and professional
-    customer = db.relationship('Customer', backref = 'user', uselist = False)
-    professional = db.relationship('Professional', backref = 'user', uselist = False)
+    customer = db.relationship('Customer', backref = 'user', uselist = False, cascade="all, delete-orphan")
+    professional = db.relationship('Professional', backref = 'user', uselist = False, cascade="all, delete-orphan")
 
 class Professional(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique = True, nullable = False) # one-to-one
-    service_id = db.Column(db.Integer, db.ForeignKey('service.id'), nullable = False) # many prof one service but one prof one service
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), unique = True, nullable = False) # one-to-one
+    service_id = db.Column(db.Integer, db.ForeignKey('service.id', ondelete='CASCADE'), nullable = False) # many prof one service but one prof one service
 
     # Relationship with service-request
-    service_request = db.relationship('Service_request', backref='professional', lazy = True)
+    service_request = db.relationship('Service_request', backref='professional', lazy = True, cascade="all, delete-orphan")
 
     # professional details
     email_id = db.Column(db.String(100), nullable = True) # default value of nullable is True
@@ -32,12 +32,13 @@ class Professional(db.Model):
     service_price = db.Column(db.Float, nullable = False)
     document = db.Column(db.String(255), nullable = False) # path to attached pdf
     experience = db.Column(db.Integer, nullable = False)
+    age = db.Column(db.Integer, nullable = False)
     description = db.Column(db.String(100), nullable = False)
     is_rejected = db.Column(db.Boolean, default=False, nullable=False)
 
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key = True) # primary_key by default is not null
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique = True, nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), unique = True, nullable = False)
     
     # customer details
     email_id = db.Column(db.String(100))
@@ -45,7 +46,7 @@ class Customer(db.Model):
     address = db.Column(db.String(255), nullable = False)
     pin_code = db.Column(db.String(10), nullable = False)
     # Relationship with service request
-    service_requests = db.relationship('Service_request', backref='customer', lazy = True)
+    service_requests = db.relationship('Service_request', backref='customer', lazy = True, cascade="all, delete-orphan")
 
 class Service(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -54,15 +55,15 @@ class Service(db.Model):
     time_required = db.Column(db.String(50), nullable = False)
     description = db.Column(db.Text, nullable = False)
     # Relationships with professional and service request
-    professional = db.relationship('Professional', backref='service', lazy = 'joined') 
-    service_requests = db.relationship('Service_request', backref = 'service', lazy = True)
+    professional = db.relationship('Professional', backref='service', lazy = 'joined', cascade="all, delete-orphan") 
+    service_requests = db.relationship('Service_request', backref = 'service', lazy = True, cascade="all, delete-orphan")
 
 
 class Service_request(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable = False)
-    service_id = db.Column(db.Integer, db.ForeignKey('service.id'), nullable = False)
-    professional_id = db.Column(db.Integer, db.ForeignKey('professional.id'), nullable = False)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id', ondelete='CASCADE'), nullable = False)
+    service_id = db.Column(db.Integer, db.ForeignKey('service.id', ondelete='CASCADE'), nullable = False)
+    professional_id = db.Column(db.Integer, db.ForeignKey('professional.id', ondelete='CASCADE'), nullable = False)
 
 
     # Request details

@@ -11,71 +11,74 @@ import os
 def index():
     return render_template("index.html")
 
-@app.route('/login', methods = ['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
 
+        # Validate form inputs
         if not username or not password:
-            flash("Please fill out all the fileds!")
+            flash("Please fill out all the fields!")
             return redirect(url_for("login"))
-        
-        user = User.query.filter_by(username=username).first()
 
-        if user is None:
+        # Check if user exists
+        user = User.query.filter_by(username=username).first()
+        if not user:
             flash("Username not found. Please check and try again.")
             return redirect(url_for("login"))
-        
 
+        # Verify password
         if not check_password_hash(user.passhash, password):
             flash("Incorrect password. Please try again!")
             return redirect(url_for("login"))
-        
+
+        # Set session details
         session['user_id'] = user.id
         session['user_role'] = user.role
         session['is_verified'] = user.is_verified
         session['is_blocked'] = user.is_blocked
 
-        role = user.role
-        is_verified = user.is_verified
-        is_blocked = user.is_blocked
-
-        if role == "admin":
+        # Handle roles
+        if user.role == "admin":
             return redirect(url_for("admin_dashboard"))
 
-        elif role == "professional":
+        elif user.role == "professional":
             professional = Professional.query.filter_by(user_id=user.id).first()
-            if professional:
-                if is_verified:
-                    if not is_blocked:
-                        is_rejected = professional.is_rejected
-                        if not is_rejected:
-                            if professional.service_id:
-                                return redirect(url_for("professional_dashboard"))
-                            else:
-                                flash("Your service has been deleted. Please register for a new service to continue.")
-                                return redirect(url_for("prof_register"))
-                        else:
-                            flash("Professionl is rejected by the admin!")
-                            return redirect(url_for("prof_register"))
-                    else:
-                        flash("You are Blocked by the Admin!")
-                        return redirect(url_for("login"))
-                else:
-                    flash("You are not yet verified!")
-                    return redirect(url_for("login"))
-            else:
+            if not professional:
                 flash("Professional does not exist! Please register to continue.")
                 return redirect(url_for("prof_register"))
-                
-        elif role == "customer":
-            if not is_blocked:
-                return redirect(url_for("customer_dashboard"))
-            else:
-                flash("User is Blocked!")
-                return redirect(url_for("login"))   
+
+            if not user.is_verified:
+                flash("You are not yet verified!")
+                return redirect(url_for("login"))
+
+            if user.is_blocked:
+                flash("You are blocked by the Admin!")
+                return redirect(url_for("login"))
+
+            if professional.is_rejected:
+                flash("Your application was rejected by the admin. Please register again.")
+                return redirect(url_for("prof_register"))
+
+            if not professional.service_id:
+                flash("The service you were offering has been deleted. Please register for a new service.")
+                return redirect(url_for("prof_register"))
+
+            return redirect(url_for("professional_dashboard"))
+
+        elif user.role == "customer":
+            if user.is_blocked:
+                flash("Your account has been blocked!")
+                return redirect(url_for("login"))
+            return redirect(url_for("customer_dashboard"))
+
+        else:
+            flash("Invalid role detected. Please contact support.")
+            return redirect(url_for("login"))
+
     return render_template('login.html')
+
 
 @app.route('/register/professional', methods=['GET', 'POST'])
 def prof_register():
@@ -90,6 +93,7 @@ def prof_register():
         address = request.form.get('address')
         document = request.files.get('document')
         experience = request.form.get('experience')
+        age = request.form.get('age')
         description = request.form.get('desc')
         pin = request.form.get('pin')
         service_price = request.form.get('price')
@@ -101,6 +105,11 @@ def prof_register():
         
         if password != confirm_password:
             flash("Passwords do not match!")
+            return redirect(url_for('prof_register'))
+        
+        age = int(age)
+        if age < 18:
+            flash("Only Professionals above 18 allowed!")
             return redirect(url_for('prof_register'))
         
         user = User.query.filter_by(username=username).first()
@@ -122,7 +131,7 @@ def prof_register():
         document.save(filename)
 
 
-        new_professional = Professional(user_id = new_user.id, email_id=email, fullname=fullname, address=address, pin_code = pin, document=filename, service_price=service_price,experience=experience, description=description, service_id=service_id, is_rejected=False)
+        new_professional = Professional(user_id = new_user.id, email_id=email, fullname=fullname, address=address, pin_code = pin, document=filename, service_price=service_price,experience=experience, description=description, service_id=service_id, is_rejected=False, age=age)
         db.session.add(new_professional)
         db.session.commit()
         return redirect(url_for('login'))
@@ -142,7 +151,7 @@ def cust_register():
         address = request.form.get('address')
         pin = request.form.get('pin')
         
-        if not username or not password or not address or not pin:
+        if not username or not password or not confirm_password or not address or not pin:
             flash("Please fill out all the fields!")
             return redirect(url_for('cust_register'))
         
@@ -214,6 +223,7 @@ def admin_dashboard():
     services = Service.query.all()
     professionals = Professional.query.all()
     service_requests = Service_request.query.all()
+    customers = Customer.query.all()
 
     # Apply search filters based on search_type
     if search_type == "services" and query:
@@ -237,7 +247,7 @@ def admin_dashboard():
         service_requests = Service_request.query.filter(Service_request.status.like(f"%{query}%")).all()
 
     # Return the results to the template
-    return render_template("admin_dashboard.html", user=user, services=services, professionals=professionals, service_requests=service_requests, search_type=search_type, query=query)
+    return render_template("admin_dashboard.html", user=user, services=services, professionals=professionals, customers=customers, service_requests=service_requests, search_type=search_type, query=query)
 
 @app.route('/service/add', methods=['GET', 'POST'])
 @admin_required
@@ -248,7 +258,19 @@ def add_service():
         time_required = request.form.get("time")
         description = request.form.get("desc")
 
-        new_service = Service(name=name, base_price=base_price, time_required=time_required, description=description)
+        # validate form inputs
+        if not name or not base_price or not time_required or not description:
+            flash("Please fill out all the fileds!")
+            return redirect(url_for("add_service"))
+        
+        name_lower = name.strip().lower()
+        # unique constraint check
+        service = Service.query.filter_by(name=name_lower).first()
+        if service:
+            flash("Service already exists!")
+            return redirect(url_for("add_service"))
+        
+        new_service = Service(name=name_lower, base_price=base_price, time_required=time_required, description=description)
         db.session.add(new_service)
         db.session.commit()
         
@@ -278,34 +300,17 @@ def delete_service(id):
             flash("Service does not exist!")
             return redirect(url_for("admin_dashboard"))
         
-        # Find professionals linked to this service
         professionals = Professional.query.filter_by(service_id=service.id).all()
-        
-        # Find service requests linked to these professionals
-        service_requests = Service_request.query.filter(Service_request.professional_id.in_([p.id for p in professionals])).all()
-        
-        # Deleting service requests, notifying the customers
-        for service_request in service_requests:
-            service_request.status = 'rejected'
-            db.session.commit()
-        
-        # Delete the professionals linked to the service and their associated users
         for professional in professionals:
-            # First, delete the associated user
-            user = professional.user  # Get the associated user
-            if user:
-                db.session.delete(user)  # Delete the user
-
-        # Delete the professionals linked to the service
-        for professional in professionals:
-            professional.is_rejected = True  # Mark the professional as rejected
+            if professional.user:  # Ensure the professional has an associated user
+                db.session.delete(professional.user)  # Delete the user entry
             db.session.delete(professional)
-        
+            
         # Delete the service
         db.session.delete(service)
         db.session.commit()
         
-        flash("Service and associated professionals deleted successfully. All linked service requests have been removed.")
+        flash("Service and associated data deleted successfully.")
         return redirect(url_for("admin_dashboard"))
     
     return render_template("/services/delete.html", service=service)
@@ -370,6 +375,45 @@ def admin_summary():
     rating_counts = list(rating_distribution.values())
 
     return render_template("/summary/admin.html", service_names=service_names, request_counts=request_counts,  rating_labels=rating_labels, rating_counts=rating_counts)
+
+@app.route('/customer/<int:id>/block')
+@auth_required
+def block_customer(id):
+    customer = Customer.query.get(id)
+    user = User.query.get(customer.user_id)
+    
+    if not customer:
+        flash("Customer does not exist!")
+        return redirect(url_for("admin_dashboard"))
+
+    if user.is_blocked:
+        flash("Customer is blocked!")
+        return redirect(url_for("admin_dashboard"))
+    else:
+        user.is_blocked = True
+        db.session.commit()
+        flash("Customer has been successfully Blocked!")
+        return redirect(url_for("admin_dashboard"))
+
+@app.route('/customer/<int:id>/unblock')
+@auth_required
+def unblock_customer(id):
+    customer = Customer.query.get(id)
+    user = User.query.get(customer.user_id)
+    
+    if not customer:
+        flash("Customer does not exist!")
+        return redirect(url_for("admin_dashboard"))
+
+    if not user.is_blocked:
+        flash("Customer is not blocked!")
+        return redirect(url_for("admin_dashboard"))
+    else:
+        user.is_blocked = False
+        db.session.commit()
+        flash("Customer has been successfully unblocked!")
+        return redirect(url_for("admin_dashboard"))
+
 
 # ------------------------------ Customer pages-----------------------------
 @app.route('/dashboard/customer')
@@ -540,7 +584,12 @@ def edit_customer():
         address = request.form.get("address")
         pin_code = request.form.get("pin_code")
 
-        customer.email = email
+        if not email or address or pin_code:
+            flash("Please provide all the details!")
+            return redirect(url_for("customer_dashboard"))
+        
+        
+        customer.email_id = email
         customer.address = address
         customer.pin_code = pin_code
         db.session.commit()
@@ -627,57 +676,52 @@ def edit_service_request(request_id):
 
 # -------------------------------- professional pages-----------------------------
 
-
 @app.route('/dashboard/professional')
-@auth_required
+@auth_required  # Assuming a decorator for ensuring the user is a professional
 def professional_dashboard():
-    user_id = session.get('user_id')
+    user_id = session.get('user_id')  # Get the logged-in user's ID
     user = User.query.get(user_id)
 
-    professional = Professional.query.filter_by(user_id=user.id).first()
-
     if user.role != 'professional':
-        if  user.is_blocked:
-            if not user.verified:
-                if professional.is_rejected:
-                    flash("Access Denied: Verified Professional only!")
-                    return redirect(url_for("login"))
-                else:
-                  flash("Access Denied: Rejected by Admin!")  
-                  return redirect(url_for("prof_register"))
-            else:
-                flash("Access Denied: Not Yet verified!")
-                return redirect(url_for("login"))
-        else:
-            flash("Access Denied: Blocked by the Admin!")
-            return redirect(url_for("login"))
-        
-    # Retrieve search parameters
-    search_type = request.args.get("search_type", "pin")
+        flash("Access Denied: Professional only!")
+        return redirect(url_for("login"))
+
+    # retrieve search parameters
+    search_type = request.args.get("search_type")
     query = request.args.get("query", "").strip()
 
+    # Initialize variables for filtered results
+    professional = Professional.query.filter_by(user_id=user_id).first()  # Get only the logged-in professional
+    service_requests = Service_request.query.filter_by(professional_id=professional.id).all() if professional else []
 
-    service_requests = Service_request.query.filter_by(professional_id = professional.id).all()
-
-    # apply filters on search_type
+    # Apply search filters based on search_type for professional's data
     if search_type == "pin" and query:
-         service_requests = Service_request.query.filter(Service_request.pin_code.ilike(f"%{query}%"))
+        service_requests = Service_request.query.filter(
+            Service_request.pin_code.like(f"%{query}%"),
+            Service_request.professional_id == professional.id
+        ).all()
+
+    elif search_type == "location" and query:
+        service_requests = Service_request.query.filter(
+            Service_request.location.like(f"%{query}%"),
+            Service_request.professional_id == professional.id
+        ).all()
 
     elif search_type == "date" and query:
-        try:
-            query_date = date.fromisoformat(query)
-            service_requests = Service_request.query.filter(Service_request.date_of_request == query_date)
+        service_requests = Service_request.query.filter(
+            Service_request.date_of_request.like(f"%{query}%"),
+            Service_request.professional_id == professional.id
+        ).all()
 
-        except ValueError:
-            flash("Invalid date format! Please use YYYY-MM-DD")
+    elif search_type == "status" and query:
+        service_requests = Service_request.query.filter(
+            Service_request.status.like(f"%{query}%"),
+            Service_request.professional_id == professional.id
+        ).all()
 
-    elif search_type in ['pending', 'accepted', 'completed', 'closed']:
-        service_requests = Service_request.query.filter(Service_request.status.ilike(f"%{query}%"))
+    # Return the results to the template
+    return render_template("professional_dashboard.html", professional=professional, user=user, service_requests=service_requests, search_type=search_type, query=query)
 
-        if search_type == "location" and query:
-         service_requests = Service_request.query.filter(Service_request.location.ilike(f"%{query}%"))
-
-    return render_template("professional_dashboard.html", user=user, professional=professional, service_requests=service_requests, search_type=search_type, query=query)
 
 @app.route("/service_request/<int:id>/complete")
 @auth_required
@@ -839,6 +883,7 @@ def accept_request(id):
 @app.route("/reject_service_request/<int:service_request_id>", methods=["GET", "POST"])
 @auth_required
 def reject_request(service_request_id):
+
     # Retrieve the service request from the database
     service_request = Service_request.query.get(service_request_id)
 
@@ -865,7 +910,7 @@ def reject_request(service_request_id):
         flash("Service request has been rejected.", "success")
         return redirect(url_for("professional_dashboard", id=service_request.professional.id))
 
-    return render_template("professional/reject.html", service_request=service_request, professional=service_request.professional)
+    return render_template("professional/service_reject.html", service_request=service_request, professional=service_request.professional)
 
 
 @app.route('/professional/<int:id>/show')
@@ -949,6 +994,24 @@ def block_professional(id):
         flash("Professional has been Blocked!")
         return redirect(url_for("admin_dashboard"))
 
+@app.route('/professional/<int:id>/unblock')
+@auth_required
+def unblock_professional(id):
+    professional = Professional.query.get(id)
+    user = User.query.get(professional.user_id)
+    
+    if not professional:
+        flash("professional does not exist!")
+        return redirect(url_for("admin_dashboard"))
+
+    if not user.is_blocked:
+        flash("Professional is not blocked!")
+        return redirect(url_for("admin_dashboard"))
+    else:
+        user.is_blocked = False
+        db.session.commit()
+        flash("Professional has been unblocked!")
+        return redirect(url_for("admin_dashboard"))
 
 @app.route('/logout')
 @auth_required
