@@ -30,8 +30,10 @@ static/: Stores static assets like CSS, and media files.
 instance/: Holds application-specific data like the SQLite database file (db.sqlite3).
 requirements.txt: Lists all dependencies required to run the application.
 
-FEATURES
-User Management
+## Features
+
+### User Management
+
 Registration & Authentication: Allows customers and professionals to register, with a separate signup process for each type of user. Professionals must be approved by the admin before they can log in.
 Role-Based Access Control: Three distinct roles — Admin, Customer, and Professional — each with different permissions. Admins manage all aspects of the platform, professionals can offer services, and customers can book services.
 Profile Management: Both customers and professionals can manage their profiles to update personal information such as email, addresses, experience, description.
@@ -51,7 +53,7 @@ Feedback & Ratings
 Service Feedback: Customers can provide feedback on the service received, allowing professionals to improve their offerings.
 Ratings System:  Professionals are rated out of 5 stars, and the feedback system helps assess service quality and customer satisfaction.
 
-DB SCHEMA
+## DB SCHEMA
 1. User
 Columns:
 id (PK): Unique ID.
@@ -86,7 +88,7 @@ id (PK): Unique ID.
 customer_id (FK), professional_id (FK), service_id (FK).
 status (pending, accepted, completed), timestamp.
 
-Key Relationships
+## Key Relationships
 
 User ↔ Service Requests:
 One customer/professional ↔ multiple requests.
