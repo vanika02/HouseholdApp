@@ -1,10 +1,11 @@
-Household Services Application
+# Household Services Application
 
+## Description
 
-DESCRIPTION OF PROJECT
 The Household Services Application is a multi-user platform designed to manage household services efficiently. It includes three user roles: Admin, Professional, and Customer. The admin oversees the system, handling professional approvals, managing users, and maintaining service-related data. Professionals sign up to offer one service, and their applications require admin approval. Customers register to book available services. The system also features visual analytics, like bar and pie charts, to display ratings and service requests, providing actionable insights for stakeholders.
 
-TECHNOLOGIES USED
+## Technologies Used
+
 Flask: Backend framework for building the web application.
 Flask-SQLAlchemy: ORM (Object-Relational Mapping) tool for database interactions.
 SQLite: Database management system for storing application data.
@@ -17,9 +18,8 @@ Werkzeug: Utility library for WSGI applications.
 Supporting Libraries: Blinker, SQLAlchemy, and others to enhance functionality and performance.
 
 
+## Architecture
 
-
-ARCHITECTURE
 The application is modularly designed to ensure clear separation of concerns and ease of maintenance. The main application code resides in app.py, and additional components are organized as follows:
 
 routes.py: Defines all the application routes and maps them to corresponding functionalities for customers, professionals, and admins.
@@ -109,9 +109,4 @@ payment_gateway: Name of the payment gateway used.
 transaction_reference: External transaction ID.
 Professional Dashboard Enhancements:
 
-VIDEO LINK
-A video demonstration of the project is available here.
-[here](https://drive.google.com/file/d/1dwWV9Olum-Ghlm8QvloOVWd49J2LswU6/view?usp=sharing)
-
-THANK YOU
 
