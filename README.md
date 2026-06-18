@@ -1,11 +1,5 @@
 Household Services Application
 
-AUTHOR
-Name: Vanika Dangi
-
-
-About Me:
-I am a data science student with a strong foundation in mathematics, statistics, and physics, which fuels my analytical and problem-solving skills. I am proficient in programming languages like Python, Java, HTML, CSS, and JavaScript, and enjoy building practical solutions through coding. Alongside my technical pursuits, I write blogs on Medium, exploring a variety of topics, including physics, to share knowledge and inspire curiosity.
 
 DESCRIPTION OF PROJECT
 The Household Services Application is a multi-user platform designed to manage household services efficiently. It includes three user roles: Admin, Professional, and Customer. The admin oversees the system, handling professional approvals, managing users, and maintaining service-related data. Professionals sign up to offer one service, and their applications require admin approval. Customers register to book available services. The system also features visual analytics, like bar and pie charts, to display ratings and service requests, providing actionable insights for stakeholders.
