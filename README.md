@@ -8,47 +8,72 @@ The Household Services Application is a multi-user platform designed to manage h
 ```
 .
 ├── README.md
-├── api.py
-├── app
-│   ├── __init__.py
-│   ├── config.py
-│   ├── models.py
-│   ├── routes.py
-│   └── templates
-│       ├── admin_dashboard.html
-│       ├── customer
-│       ├── customer_dashboard.html
-│       ├── customer_edit.html
-│       ├── customer_profile.html
-│       ├── index.html
-│       ├── layout.html
-│       ├── login.html
-│       ├── messages.html
-│       ├── navbar.html
-│       ├── professional
-│       ├── professional_dashboard.html
-│       ├── professional_edit.html
-│       ├── professional_profile.html
-│       ├── register_cust.html
-│       ├── register_prof.html
-│       ├── search
-│       ├── search_results.html
-│       ├── searchbar.html
-│       ├── services
-│       └── summary
-├── app.py
-├── instance
-│   └── db.sqlite3
-├── requirements.txt
-└── static
-    ├── css
-    │   └── style.css
-    └── images
-        ├── HouseHold.png
-        ├── lake-view.svg
-        └── window.svg
+├── __init__.py
+├── admin
+│   └── __init__.py
+├── api
+│   └── __init__.py
+├── auth
+│   └── __init__.py
+├── config.py
+├── customer
+│   └── __init__.py
+├── models.py
+├── professional
+│   └── __init__.py
+├── routes.py
+├── search
+│   └── __init__.py
+├── services
+│   └── __init__.py
+├── summary
+│   └── __init__.py
+└── templates
+    ├── admin_dashboard.html
+    ├── customer
+    │   ├── book.html
+    │   ├── close.html
+    │   ├── edit.html
+    │   └── show.html
+    ├── customer_dashboard.html
+    ├── customer_edit.html
+    ├── customer_profile.html
+    ├── index.html
+    ├── layout.html
+    ├── login.html
+    ├── messages.html
+    ├── navbar.html
+    ├── professional
+    │   ├── approve.html
+    │   ├── delete.html
+    │   ├── reject.html
+    │   ├── service_reject.html
+    │   └── show.html
+    ├── professional_dashboard.html
+    ├── professional_edit.html
+    ├── professional_profile.html
+    ├── register_cust.html
+    ├── register_prof.html
+    ├── search
+    │   ├── customer_service.html
+    │   ├── pin_code.html
+    │   ├── professionals.html
+    │   ├── service_requests.html
+    │   └── services.html
+    ├── search_results.html
+    ├── searchbar.html
+    ├── services
+    │   ├── add.html
+    │   ├── delete.html
+    │   ├── edit.html
+    │   └── show.html
+    └── summary
+        ├── admin.html
+        ├── customer.html
+        └── professional.html
 
-12 directories, 29 files
+15 directories, 50 files
+
 ```
 
 
