@@ -1,33 +1,41 @@
-from flask import Flask, render_template
-from app import app
+from flask import Flask
 from app.extensions import db
 from app.models import User
 from werkzeug.security import generate_password_hash
 from app.admin.routes import admin_router
+from app.config import Config
 
 
+def create_app():
+    app=Flask(__name__)
 
-app=Flask(__name__)
+    app.config['SECRET_KEY'] = Config.SECRET_KEY
+    app.config['SQLALCHEMY_DATABASE_URI'] = Config.SQLALCHEMY_DATABASE_URI
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = Config.SQLALCHEMY_DATABASE_URI
+    app.config['UPLOAD_FOLDER'] =Config.UPLOAD_FOLDER
+    app.config['DEBUG'] = Config.DEBUG
 
-app.register_blueprint(admin_router)
+    db.init_app(app)
 
-with app.app_context():
-    db.create_all()
+    app.register_blueprint(admin_router)
 
-    admin = User.query.filter_by(role="admin").first()
+    with app.app_context():
+        db.create_all()
 
-    if not admin:
-        password_hash = generate_password_hash("admin")
-        admin = User(
-            username="admin",
-            passhash=password_hash,
-            role="admin",
-            is_blocked=False,
-            is_verified=True
-        )
-        db.session.add(admin)
-        db.session.commit()
+        admin = User.query.filter_by(role="admin").first()
+
+        if not admin:
+            password_hash = generate_password_hash("admin")
+            admin = User(
+                username="admin",
+                passhash=password_hash,
+                role="admin",
+                is_blocked=False,
+                is_verified=True
+            )
+            db.session.add(admin)
+            db.session.commit()
+
+    return app
     
-
-if __name__ == "__main__":
-    app.run(debug=True)
+app = create_app()
