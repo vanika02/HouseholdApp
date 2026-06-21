@@ -4,6 +4,54 @@
 
 The Household Services Application is a multi-user platform designed to manage household services efficiently. It includes three user roles: Admin, Professional, and Customer. The admin oversees the system, handling professional approvals, managing users, and maintaining service-related data. Professionals sign up to offer one service, and their applications require admin approval. Customers register to book available services. The system also features visual analytics, like bar and pie charts, to display ratings and service requests, providing actionable insights for stakeholders.
 
+## Folder Structure 
+```
+.
+├── README.md
+├── api.py
+├── app
+│   ├── __init__.py
+│   ├── config.py
+│   ├── models.py
+│   ├── routes.py
+│   └── templates
+│       ├── admin_dashboard.html
+│       ├── customer
+│       ├── customer_dashboard.html
+│       ├── customer_edit.html
+│       ├── customer_profile.html
+│       ├── index.html
+│       ├── layout.html
+│       ├── login.html
+│       ├── messages.html
+│       ├── navbar.html
+│       ├── professional
+│       ├── professional_dashboard.html
+│       ├── professional_edit.html
+│       ├── professional_profile.html
+│       ├── register_cust.html
+│       ├── register_prof.html
+│       ├── search
+│       ├── search_results.html
+│       ├── searchbar.html
+│       ├── services
+│       └── summary
+├── app.py
+├── instance
+│   └── db.sqlite3
+├── requirements.txt
+└── static
+    ├── css
+    │   └── style.css
+    └── images
+        ├── HouseHold.png
+        ├── lake-view.svg
+        └── window.svg
+
+12 directories, 29 files
+```
+
+
 ## Technologies Used
 
 Flask: Backend framework for building the web application.
