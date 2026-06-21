@@ -1,8 +1,7 @@
-from app import app
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from werkzeug.security import generate_password_hash
-db = SQLAlchemy(app)
+from app.extensions import db 
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -74,16 +73,3 @@ class Service_request(db.Model):
     status = db.Column(db.String(20), default = 'pending') # pending, accepted, completed, closed
     remarks = db.Column(db.String(256), nullable = True)
     rating = db.Column(db.Integer, nullable = True) # ratings out of 5
-
-# Initialize tables within app context
-with app.app_context():
-    db.create_all()
-
-    # if admin exists, else create admin
-
-    admin = User.query.filter_by(role ="admin").first()
-    if not admin:
-        password_hash = generate_password_hash('admin')
-        admin = User(username='admin', passhash=password_hash, role = 'admin', is_blocked=False, is_verified=True)
-        db.session.add(admin)
-        db.session.commit()
