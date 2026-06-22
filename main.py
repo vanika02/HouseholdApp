@@ -3,6 +3,7 @@ from app.extensions import db
 from app.models import User
 from werkzeug.security import generate_password_hash
 from app.admin.routes import admin_router
+from app.auth.routes import auth_router
 from app.config import Config
 
 
@@ -18,6 +19,7 @@ def create_app():
     db.init_app(app)
 
     app.register_blueprint(admin_router)
+    app.register_blueprint(auth_router)
 
     with app.app_context():
         db.create_all()

@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, abort, flash, session, redirect, url_for
 from functools import wraps
-from app.models import db, User, Service_request, Professional, Customer, Service
+from app.models import User, Service_request, Professional, Customer, Service
+from app.extensions import db
+
 
 admin_router = Blueprint("/admin", __name__, url_prefix="/admin")
 
