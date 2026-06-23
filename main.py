@@ -6,9 +6,10 @@ from app.admin.routes import admin_router
 from app.auth.routes import auth_router
 from app.config import Config
 
-
 def create_app():
     app=Flask(__name__)
+    print("template folder: ", app.template_folder)
+    print("root path: ", app.root_path)
 
     app.config['SECRET_KEY'] = Config.SECRET_KEY
     app.config['SQLALCHEMY_DATABASE_URI'] = Config.SQLALCHEMY_DATABASE_URI

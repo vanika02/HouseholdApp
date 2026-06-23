@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app.models import User, Service, Service_request, Professional
 from app.extensions import db
 
-auth_router = Blueprint("auth", __name__, url_prefix="/auth")
+auth_router = Blueprint("auth", __name__)
 
 @auth_router.route('/')
 def index():
@@ -19,18 +19,18 @@ def login():
         # Validate form inputs
         if not username or not password:
             flash("Please fill out all the fields!")
-            return redirect(url_for("auth.login"))
+            return redirect(url_for("login"))
 
         # Check if user exists
         user = User.query.filter_by(username=username).first()
         if not user:
             flash("Username not found. Please check and try again.")
-            return redirect(url_for("auth.login"))
+            return redirect(url_for("login"))
 
         # Verify password
         if not check_password_hash(user.passhash, password):
             flash("Incorrect password. Please try again!")
-            return redirect(url_for("auth.login"))
+            return redirect(url_for("login"))
 
         # Set session details
         session['user_id'] = user.id
@@ -74,6 +74,6 @@ def login():
 
         else:
             flash("Invalid role detected. Please contact support.")
-            return redirect(url_for("auth.login"))
+            return redirect(url_for("login"))
 
     return render_template('login.html')
