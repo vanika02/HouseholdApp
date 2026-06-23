@@ -3,6 +3,7 @@ from app.extensions import db
 from app.models import User
 from werkzeug.security import generate_password_hash
 from app.admin.routes import admin_router
+from app.auth.routes import auth_router
 from app.config import Config
 
 
@@ -22,21 +23,21 @@ def create_app():
     app.register_blueprint(auth_router)
 
     with app.app_context():
-    db.create_all()
+        db.create_all()
 
-    admin = User.query.filter_by(role="admin").first()
+        admin = User.query.filter_by(role="admin").first()
 
-    if not admin:
-        password_hash = generate_password_hash("admin")
-        admin = User(
-            username="admin",
-            passhash=password_hash,
-            role="admin",
-            is_blocked=False,
-            is_verified=True
-        )
-        db.session.add(admin)
-        db.session.commit()
+        if not admin:
+            password_hash = generate_password_hash("admin")
+            admin = User(
+                username="admin",
+                passhash=password_hash,
+                role="admin",
+                is_blocked=False,
+                is_verified=True
+            )
+            db.session.add(admin)
+            db.session.commit()
 
     return app 
 
