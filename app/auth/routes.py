@@ -50,11 +50,11 @@ def login():
 
             if not user.is_verified:
                 flash("You are not yet verified!")
-                return redirect(url_for("auth.login"))
+                return redirect(url_for("login"))
 
             if user.is_blocked:
                 flash("You are blocked by the Admin!")
-                return redirect(url_for("auth.login"))
+                return redirect(url_for("login"))
 
             if professional.is_rejected:
                 flash("Your application was rejected by the admin. Please register again.")
@@ -69,7 +69,7 @@ def login():
         elif user.role == "customer":
             if user.is_blocked:
                 flash("Your account has been blocked!")
-                return redirect(url_for("auth.login"))
+                return redirect(url_for("login"))
             return redirect(url_for("customer_dashboard"))
 
         else:

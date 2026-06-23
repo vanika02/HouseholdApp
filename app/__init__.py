@@ -10,6 +10,8 @@ from app.config import Config
 def create_app():
 
     app = Flask(__name__)
+    print(app.template_folder)
+    print(app.root_path)
 
     app.config['SECRET_KEY'] = Config.SECRET_KEY
     app.config['SQLALCHEMY_DATABASE_URI'] = Config.SQLALCHEMY_DATABASE_URI
