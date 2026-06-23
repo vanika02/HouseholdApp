@@ -18,7 +18,9 @@ def create_app():
 
     db.init_app(app)
 
-    
+    app.register_blueprint(admin_router)
+    app.register_blueprint(auth_router)
+
     return app 
 
 app = create_app()
