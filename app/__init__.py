@@ -16,6 +16,9 @@ def create_app():
     app.config['UPLOAD_FOLDER'] = Config.UPLOAD_FOLDER
     app.config['DEBUG'] = Config.DEBUG
 
+    db.init_app(app)
+
+    
     return app 
 
 app = create_app()
