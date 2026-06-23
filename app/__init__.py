@@ -21,6 +21,23 @@ def create_app():
     app.register_blueprint(admin_router)
     app.register_blueprint(auth_router)
 
+    with app.app_context():
+    db.create_all()
+
+    admin = User.query.filter_by(role="admin").first()
+
+    if not admin:
+        password_hash = generate_password_hash("admin")
+        admin = User(
+            username="admin",
+            passhash=password_hash,
+            role="admin",
+            is_blocked=False,
+            is_verified=True
+        )
+        db.session.add(admin)
+        db.session.commit()
+
     return app 
 
 app = create_app()
