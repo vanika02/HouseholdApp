@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-cust_router = Blueprint('/customer', __name__)
+cust_router = Blueprint("customer", __name__)
 
 @cust_router.route('/register/customer', methods = ['GET', 'POST'])
 def cust_register():
@@ -15,17 +15,17 @@ def cust_register():
         
         if not username or not password or not confirm_password or not address or not pin:
             flash("Please fill out all the fields!")
-            return redirect(url_for('cust_register'))
+            return redirect(url_for('customer.cust_register'))
         
         if password != confirm_password:
             flash("Passwords do not match!")
-            return redirect(url_for('cust_register'))
+            return redirect(url_for('customer.cust_register'))
         
         user = User.query.filter_by(username=username).first()
 
         if user:
             flash("Username already exists!")
-            return redirect(url_for('cust_register'))
+            return redirect(url_for('customer.cust_register'))
 
         password_hash = generate_password_hash(password)
 

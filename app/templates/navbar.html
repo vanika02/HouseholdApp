@@ -15,15 +15,15 @@
         <li><a href="{{url_for('logout')}}" class="nav-link">Logout</a></li>
         {% else %}
         <ul class="menu-wrapper ms-auto">
-            <li><a href="{{ url_for('register_cust') }}" class="nav-link">Register as Customer</a></li>
-            <li><a href="{{ url_for('register_prof') }}" class="nav-link">Register as Professional</a></li>
+            <li><a href="{{ url_for('customer.cust_register') }}" class="nav-link">Register as Customer</a></li>
+            <li><a href="{{ url_for('prof_register') }}" class="nav-link">Register as Professional</a></li>
             <li><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
         </ul>
         {% endif %}
         {% else %}
         <ul class="menu-wrapper ms-auto">
-            <li><a href="{{ url_for('register_cust') }}" class="nav-link">Register as Customer</a></li>
-            <li><a href="{{ url_for('register_prof') }}" class="nav-link">Register as Professional</a></li>
+            <li><a href="{{ url_for('customer.cust_register)') }}" class="nav-link">Register as Customer</a></li>
+            <li><a href="{{ url_for('prof_register') }}" class="nav-link">Register as Professional</a></li>
             <li><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
         </ul>
         {% endif %}
@@ -34,16 +34,16 @@
         <li><a href="{{url_for('logout')}}" class="nav-link">Logout</a></li>
         {% else %}
         <ul class="menu-wrapper ms-auto">
-            <li><a href="{{ url_for('register_cust') }}" class="nav-link">Register as Customer</a></li>
-            <li><a href="{{ url_for('register_prof') }}" class="nav-link">Register as Professional</a></li>
+            <li><a href="{{ url_for('customer.cust_register') }}" class="nav-link">Register as Customer</a></li>
+            <li><a href="{{ url_for('prof_register') }}" class="nav-link">Register as Professional</a></li>
             <li><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
         </ul>
         {% endif %}
         {% endif %}
         {% else %}
         <ul class="menu-wrapper ms-auto">
-            <li><a href="{{ url_for('register_cust') }}" class="nav-link">Register as Customer</a></li>
-            <li><a href="{{ url_for('register_prof') }}" class="nav-link">Register as Professional</a></li>
+            <li><a href="{{ url_for('customer.cust_register') }}" class="nav-link">Register as Customer</a></li>
+            <li><a href="{{ url_for('prof_register') }}" class="nav-link">Register as Professional</a></li>
             <li><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
         </ul>
         {% endif %}
