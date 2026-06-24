@@ -16,15 +16,15 @@
         {% else %}
         <ul class="menu-wrapper ms-auto">
             <li><a href="{{ url_for('customer.cust_register') }}" class="nav-link">Register as Customer</a></li>
-            <li><a href="{{ url_for('prof_register') }}" class="nav-link">Register as Professional</a></li>
-            <li><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
+            <li><a href="{{ url_for('professional.prof_register') }}" class="nav-link">Register as Professional</a></li>
+            <li><a href="{{ url_for('auth.login') }}" class="nav-link">Login</a></li>
         </ul>
         {% endif %}
         {% else %}
         <ul class="menu-wrapper ms-auto">
             <li><a href="{{ url_for('customer.cust_register)') }}" class="nav-link">Register as Customer</a></li>
-            <li><a href="{{ url_for('prof_register') }}" class="nav-link">Register as Professional</a></li>
-            <li><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
+            <li><a href="{{ url_for('professional.prof_register') }}" class="nav-link">Register as Professional</a></li>
+            <li><a href="{{ url_for('auth.login') }}" class="nav-link">Login</a></li>
         </ul>
         {% endif %}
         {% elif session.get('user_role') == 'customer' %}
@@ -35,16 +35,16 @@
         {% else %}
         <ul class="menu-wrapper ms-auto">
             <li><a href="{{ url_for('customer.cust_register') }}" class="nav-link">Register as Customer</a></li>
-            <li><a href="{{ url_for('prof_register') }}" class="nav-link">Register as Professional</a></li>
-            <li><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
+            <li><a href="{{ url_for('professional.prof_register') }}" class="nav-link">Register as Professional</a></li>
+            <li><a href="{{ url_for('auth.login') }}" class="nav-link">Login</a></li>
         </ul>
         {% endif %}
         {% endif %}
         {% else %}
         <ul class="menu-wrapper ms-auto">
             <li><a href="{{ url_for('customer.cust_register') }}" class="nav-link">Register as Customer</a></li>
-            <li><a href="{{ url_for('prof_register') }}" class="nav-link">Register as Professional</a></li>
-            <li><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
+            <li><a href="{{ url_for('professional.prof_register') }}" class="nav-link">Register as Professional</a></li>
+            <li><a href="{{ url_for('auth.login') }}" class="nav-link">Login</a></li>
         </ul>
         {% endif %}
     </ul>

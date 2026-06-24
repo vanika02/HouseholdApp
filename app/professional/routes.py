@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-prof_router = Blueprint("professor", __name__)
+prof_router = Blueprint("professional", __name__)
 
 @prof_router.route('/register/professional', methods=['GET', 'POST'])
 def prof_register():
