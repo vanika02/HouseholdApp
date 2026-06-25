@@ -11,14 +11,15 @@
   </div>
 
   <style>
-    #serviceChart, #ratingChart {
+    #serviceChart,
+    #ratingChart {
       max-width: 600px;
       max-height: 600px;
       margin: 0 auto;
       display: block;
     }
   </style>
-  
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
@@ -84,9 +85,10 @@
 </div>
 <div style="margin-top: 50px; text-align: center;">
   <!-- Back to Dashboard Button -->
-  <a href="{{ url_for('admin_dashboard') }}">
-      <button style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
-          Back to Dashboard
-      </button>
+  <a href="{{ url_for('admin.admin_dashboard') }}">
+    <button
+      style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+      Back to Dashboard
+    </button>
   </a>
 </div>
