@@ -4,7 +4,7 @@ from app.models import User, Service_request, Professional, Customer, Service
 from app.extensions import db
 
 
-admin_router = Blueprint("/admin", __name__, url_prefix="/admin")
+admin_router = Blueprint("admin", __name__)
 
 # decorater admin routes
 def admin_required(func):
@@ -21,7 +21,7 @@ def admin_required(func):
     return inner
 
 
-@admin_router.route('/dashboard/admin')
+@admin_router.route('/admin/dashboard')
 @admin_required
 def admin_dashboard():
     user_id = session.get('user_id')
@@ -102,7 +102,7 @@ def show_service(id):
     service = Service.query.get(id)
     if not service:
         flash("service does not exist!")
-        return redirect(url_for("admin_dashboard"))
+        return redirect(url_for("admin.admin_dashboard"))
 
     return render_template("/services/show.html", service=service) 
     
@@ -114,7 +114,7 @@ def delete_service(id):
     
         if not service:
             flash("Service does not exist!")
-            return redirect(url_for("admin_dashboard"))
+            return redirect(url_for("admin.admin_dashboard"))
         
         professionals = Professional.query.filter_by(service_id=service.id).all()
         for professional in professionals:
@@ -127,7 +127,7 @@ def delete_service(id):
         db.session.commit()
         
         flash("Service and associated data deleted successfully.")
-        return redirect(url_for("admin_dashboard"))
+        return redirect(url_for("admin.admin_dashboard"))
     
     return render_template("/services/delete.html", service=service)
 
@@ -137,7 +137,7 @@ def edit_service(id):
     service = Service.query.get(id)
     if not service:
         flash("Service does not exist!")
-        return redirect(url_for("admin_dashboard"))
+        return redirect(url_for("admin.admin_dashboard"))
     
     if request.method == "POST":
         print(request.form)
@@ -150,7 +150,7 @@ def edit_service(id):
         service.description = desc
         db.session.commit()
         flash("Service Edited successfully!")
-        return redirect(url_for('admin_dashboard'))
+        return redirect(url_for('admin.admin_dashboard'))
 
     return render_template("services/edit.html", service=service)  
 

@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    Admin Dashboard
+Admin Dashboard
 {% endblock %}
 
 {% block content %}
@@ -10,200 +10,201 @@
 <h1 class="display-1">Welcome Admin</h1>
 
 {% if search_type == "services" %}
-    {% include 'search/services.html' %}
+{% include 'search/services.html' %}
 {% elif search_type == "professionals" %}
-    {% include 'search/professionals.html' %}
+{% include 'search/professionals.html' %}
 {% elif search_type == "service_requests" %}
-    {% include 'search/service_requests.html' %}
+{% include 'search/service_requests.html' %}
 {% else %}
-    <!-- Default view showing all sections (if no search type is specified) -->
-    <h2 class="display-2">Services:</h2>
-    <a href="{{ url_for('add_service') }}" class="btn btn-success">
-        <i class="fas fa-plus"></i> Add a new service
-    </a>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Service ID</th>
-                <th>Service Name</th>
-                <th>No of Professionals</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if services %}
-                {% for service in services %}
-                <tr>
-                    <td>{{ service.id }}</td>
-                    <td>{{ service.name }}</td>
-                    <td>{{ service.professional | length }}</td>
-                    <td>
-                        <a href="{{ url_for('show_service', id=service.id) }}" class="btn btn-primary">
-                            <i class="fas fa-search"></i> Show
-                        </a>
-                        <a href="{{ url_for('edit_service', id=service.id) }}" class="btn btn-edit">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                        <a href="{{ url_for('delete_service', id=service.id) }}" class="btn btn-danger">
-                            <i class="fas fa-trash"></i> Delete
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td colspan="4" class="text-center">No services found.</td>
-                </tr>
-            {% endif %}
-        </tbody>
-    </table>
+<!-- Default view showing all sections (if no search type is specified) -->
+<h2 class="display-2">Services:</h2>
+<a href="{{ url_for('admin.add_service') }}" class="btn btn-success">
+    <i class="fas fa-plus"></i> Add a new service
+</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Service ID</th>
+            <th>Service Name</th>
+            <th>No of Professionals</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if services %}
+        {% for service in services %}
+        <tr>
+            <td>{{ service.id }}</td>
+            <td>{{ service.name }}</td>
+            <td>{{ service.professional | length }}</td>
+            <td>
+                <a href="{{ url_for('admin.show_service', id=service.id) }}" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Show
+                </a>
+                <a href="{{ url_for('admin.edit_service', id=service.id) }}" class="btn btn-edit">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <a href="{{ url_for('admin.delete_service', id=service.id) }}" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Delete
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="4" class="text-center">No services found.</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
 
-    <h2 class="display-2">Professionals:</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Professional ID</th>
-                <th>Professional Name</th>
-                <th>Service Offered</th>
-                <th>Experience (in yrs)</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if professionals %}
-                {% for professional in professionals %}
-                <tr>
-                    <td>{{ professional.id }}</td>
-                    <td>{{ professional.fullname | title}}</td>
-                    <td>{{ professional.service.name }}</td>
-                    <td>{{ professional.experience }}</td>
-                    <td>
-                        <a href="{{ url_for('show_professional', id=professional.id) }}" class="btn btn-primary">
-                            <i class="fas fa-search"></i> Show
-                        </a>
-                        {% if not professional.user.is_verified and not professional.user.is_rejected %}
-                            <a href="{{ url_for('approve_professional', id=professional.id) }}" class="btn btn-primary">
-                                <i class="fas fa-check"></i> Approve
-                            </a>
-                        {% endif %}
-                        {% if professional.user.is_verified and not professional.user.is_rejected and not professional.user.is_blocked %}
-                            <a href="{{ url_for('approve_professional', id=professional.id) }}" class="btn btn-success">
-                                <i class="fas fa-check"></i> Approved
-                            </a>
-                        {% endif %}
-                        {% if not professional.user.is_rejected and not professional.user.is_blocked  %}
-                            <a href="{{ url_for('reject_professional', id=professional.id) }}" class="btn btn-warning">
-                                <i class="fas fa-times"></i> Reject
-                            </a>
-                        {% endif %}
-                        {% if professional.user.is_rejected and not professional.user.is_blocked  %}
-                            <a href="{{ url_for('reject_professional', id=professional.id) }}" class="btn btn-warning">
-                                <i class="fas fa-times"></i> Rejected
-                            </a>
-                        {% endif %}
-                        {% if professional.user.is_blocked %}
-                            <a href="{{ url_for('block_professional', id=professional.id) }}" class="btn btn-danger">
-                                <i class="fas fa-ban"></i> Blocked
-                            </a>
-                        {% else %}
-                            <a href="{{ url_for('block_professional', id=professional.id) }}" class="btn btn-danger">
-                                <i class="fas fa-ban"></i> Block
-                            </a>
-                        {% endif %}
-                            {% if professional.user.is_blocked %}
-                            <a href="{{ url_for('unblock_professional', id=professional.id) }}" class="btn btn-light">
-                                <i class="fas fa-ban"></i> Unblock
-                            </a>
-                    {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td colspan="5" class="text-center">No professionals found.</td>
-                </tr>
-            {% endif %}
-        </tbody>
-    </table>
+<h2 class="display-2">Professionals:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Professional ID</th>
+            <th>Professional Name</th>
+            <th>Service Offered</th>
+            <th>Experience (in yrs)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if professionals %}
+        {% for professional in professionals %}
+        <tr>
+            <td>{{ professional.id }}</td>
+            <td>{{ professional.fullname | title}}</td>
+            <td>{{ professional.service.name }}</td>
+            <td>{{ professional.experience }}</td>
+            <td>
+                <a href="{{ url_for('admin.show_professional', id=professional.id) }}" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Show
+                </a>
+                {% if not professional.user.is_verified and not professional.user.is_rejected %}
+                <a href="{{ url_for('admin.approve_professional', id=professional.id) }}" class="btn btn-primary">
+                    <i class="fas fa-check"></i> Approve
+                </a>
+                {% endif %}
+                {% if professional.user.is_verified and not professional.user.is_rejected and not
+                professional.user.is_blocked %}
+                <a href="{{ url_for('admin.approve_professional', id=professional.id) }}" class="btn btn-success">
+                    <i class="fas fa-check"></i> Approved
+                </a>
+                {% endif %}
+                {% if not professional.user.is_rejected and not professional.user.is_blocked %}
+                <a href="{{ url_for('admin.reject_professional', id=professional.id) }}" class="btn btn-warning">
+                    <i class="fas fa-times"></i> Reject
+                </a>
+                {% endif %}
+                {% if professional.user.is_rejected and not professional.user.is_blocked %}
+                <a href="{{ url_for('admin.reject_professional', id=professional.id) }}" class="btn btn-warning">
+                    <i class="fas fa-times"></i> Rejected
+                </a>
+                {% endif %}
+                {% if professional.user.is_blocked %}
+                <a href="{{ url_for('admin.block_professional', id=professional.id) }}" class="btn btn-danger">
+                    <i class="fas fa-ban"></i> Blocked
+                </a>
+                {% else %}
+                <a href="{{ url_for('admin.block_professional', id=professional.id) }}" class="btn btn-danger">
+                    <i class="fas fa-ban"></i> Block
+                </a>
+                {% endif %}
+                {% if professional.user.is_blocked %}
+                <a href="{{ url_for('admin.unblock_professional', id=professional.id) }}" class="btn btn-light">
+                    <i class="fas fa-ban"></i> Unblock
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="5" class="text-center">No professionals found.</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
 
-    <h2 class="display-2">Customers:</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Customer ID</th>
-                <th>Customer Name</th>
-                <th>Email ID</th>
-                <th>Address</th>
-                <th>Pin-Code</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if customers %}
-                {% for customer in customers %}
-                <tr>
-                    <td>{{ customer.id }}</td>
-                    <td>{{ customer.fullname | title}}</td>
-                    <td>{{ customer.email_id }}</td>
-                    <td>{{ customer.address }}</td>
-                    <td>{{ customer.pin_code }}</td>
-                    <td>
-                        {% if customer.user.is_blocked %}
-                            <a href="{{ url_for('block_customer', id=customer.id) }}" class="btn btn-danger">
-                                <i class="fas fa-ban"></i> Blocked
-                            </a>
-                        {% else %}
-                            <a href="{{ url_for('block_customer', id=customer.id) }}" class="btn btn-danger">
-                                <i class="fas fa-ban"></i> Block
-                            </a>
-                        {% endif %}
-                            {% if customer.user.is_blocked %}
-                            <a href="{{ url_for('unblock_customer', id=customer.id) }}" class="btn btn-light">
-                                <i class="fas fa-ban"></i> Unblock
-                            </a>
-                    {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td colspan="5" class="text-center">No Customers found.</td>
-                </tr>
-            {% endif %}
-        </tbody>
-    </table>
+<h2 class="display-2">Customers:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Customer ID</th>
+            <th>Customer Name</th>
+            <th>Email ID</th>
+            <th>Address</th>
+            <th>Pin-Code</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if customers %}
+        {% for customer in customers %}
+        <tr>
+            <td>{{ customer.id }}</td>
+            <td>{{ customer.fullname | title}}</td>
+            <td>{{ customer.email_id }}</td>
+            <td>{{ customer.address }}</td>
+            <td>{{ customer.pin_code }}</td>
+            <td>
+                {% if customer.user.is_blocked %}
+                <a href="{{ url_for('admin.block_customer', id=customer.id) }}" class="btn btn-danger">
+                    <i class="fas fa-ban"></i> Blocked
+                </a>
+                {% else %}
+                <a href="{{ url_for('admin.block_customer', id=customer.id) }}" class="btn btn-danger">
+                    <i class="fas fa-ban"></i> Block
+                </a>
+                {% endif %}
+                {% if customer.user.is_blocked %}
+                <a href="{{ url_for('admin.unblock_customer', id=customer.id) }}" class="btn btn-light">
+                    <i class="fas fa-ban"></i> Unblock
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="5" class="text-center">No Customers found.</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
 
-    <h2 class="display-2">Service Requests:</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Service Request ID</th>
-                <th>Assigned Professional</th>
-                <th>Customer ID</th>
-                <th>Date of Request</th>
-                <th>Date of Completion</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if service_requests %}
-                {% for service_request in service_requests %}
-                <tr>
-                    <td>{{ service_request.id }}</td>
-                    <td>{{ service_request.professional_id }}</td>
-                    <td>{{ service_request.customer_id }}</td>
-                    <td>{{ service_request.date_of_request }}</td>
-                    <td>{{ service_request.date_of_completion }}</td>
-                    <td>{{ service_request.status | capitalize }}</td>
-                </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td colspan="6" class="text-center">No service requests found.</td>
-                </tr>
-            {% endif %}
-        </tbody>
-    </table>
+<h2 class="display-2">Service Requests:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Service Request ID</th>
+            <th>Assigned Professional</th>
+            <th>Customer ID</th>
+            <th>Date of Request</th>
+            <th>Date of Completion</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if service_requests %}
+        {% for service_request in service_requests %}
+        <tr>
+            <td>{{ service_request.id }}</td>
+            <td>{{ service_request.professional_id }}</td>
+            <td>{{ service_request.customer_id }}</td>
+            <td>{{ service_request.date_of_request }}</td>
+            <td>{{ service_request.date_of_completion }}</td>
+            <td>{{ service_request.status | capitalize }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="6" class="text-center">No service requests found.</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
 {% endif %}
 
 {% endblock %}

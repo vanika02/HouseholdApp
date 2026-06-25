@@ -6,6 +6,17 @@ from app.extensions import db
 
 auth_router = Blueprint("auth", __name__)
 
+# decorator for auth function
+def auth_required(func):
+    @wraps(func)
+    def inner(*args, **kwargs):
+        if 'user_id' in session:
+            return func(*args, **kwargs)
+        else:
+            flash('Please login to continue')
+            return redirect(url_for('login'))
+    return inner
+
 @auth_router.route('/')
 def index():
     return render_template("index.html")
@@ -40,7 +51,7 @@ def login():
 
         # Handle roles
         if user.role == "admin":
-            return redirect(url_for("admin_dashboard"))
+            return redirect(url_for("admin.admin_dashboard"))
 
         elif user.role == "professional":
             professional = Professional.query.filter_by(user_id=user.id).first()
@@ -77,3 +88,10 @@ def login():
             return redirect(url_for("auth.login"))
 
     return render_template('login.html')
+
+
+@auth_router.route('/logout')
+@auth_required
+def logout():
+    session.pop('user_id')
+    return redirect(url_for('auth.login'))

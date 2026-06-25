@@ -5,14 +5,14 @@
     <ul class="menu-wrapper" id="menu-wrapper">
         {% if session.get("user_id") %}
         {% if session.get('user_role') == 'admin' %}
-        <li><a href="{{url_for('admin_summary')}}" class="nav-link">Summary</a></li>
-        <li><a href="{{url_for('logout')}}" class="nav-link">Logout</a></li>
+        <li><a href="{{url_for('admin.admin_summary')}}" class="nav-link">Summary</a></li>
+        <li><a href="{{url_for('auth.logout')}}" class="nav-link">Logout</a></li>
         {% elif session.get('user_role') == 'professional' %}
         {% if session.get('is_verified') %}
         {% if not session.get('is_blocked') %}
         <li><a href="{{url_for('professional_profile')}}" class="nav-link">Profile</a></li>
         <li><a href="{{url_for('professional_summary')}}" class="nav-link">Summary</a></li>
-        <li><a href="{{url_for('logout')}}" class="nav-link">Logout</a></li>
+        <li><a href="{{url_for('auth.logout')}}" class="nav-link">Logout</a></li>
         {% else %}
         <ul class="menu-wrapper ms-auto">
             <li><a href="{{ url_for('customer.cust_register') }}" class="nav-link">Register as Customer</a></li>
