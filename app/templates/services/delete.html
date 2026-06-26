@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    Delete Service
+Delete Service
 {% endblock %}
 
 {% block content %}
@@ -10,7 +10,7 @@
 </h1>
 <p class="f-3">Are you sure you want to delete {{service.name}}</p>
 
-<form action="{{ url_for('delete_service', id=service.id) }}" method="POST" class="form">
+<form action="{{ url_for('admin.delete_service', id=service.id) }}" method="POST" class="form">
     <div class="form-group">
         <button type="submit" class="btn btn-danger">
             <i class="fas fa-trash"></i>
@@ -21,11 +21,12 @@
 
 <div style="margin-top: 50px; text-align: center;">
     <!-- Back to Dashboard Button -->
-    <a href="{{ url_for('admin_dashboard') }}">
-        <button style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+    <a href="{{ url_for('admin.admin_dashboard') }}">
+        <button
+            style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
             Back to Dashboard
         </button>
     </a>
-  </div>
-  
+</div>
+
 {% endblock %}
