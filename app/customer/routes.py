@@ -1,5 +1,7 @@
-from flask import Blueprint, request, render_template
-
+from flask import Blueprint, request, render_template, flash, redirect, url_for
+from werkzeug.security import generate_password_hash
+from app.models import User, Customer
+from app.extensions import db
 
 cust_router = Blueprint("customer", __name__)
 
