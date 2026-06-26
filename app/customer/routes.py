@@ -1,4 +1,5 @@
-from flask import Blueprint
+from flask import Blueprint, request, render_template
+
 
 cust_router = Blueprint("customer", __name__)
 
