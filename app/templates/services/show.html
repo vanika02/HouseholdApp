@@ -1,58 +1,59 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-     {{service.name}} Details
+{{service.name}} Details
 {% endblock %}
 
 {% block content %}
-    <h1 class="display-1">{{service.name}} Details</h1>
-    <a href="{{url_for('add_service')}}" class="btn btn-success">
-        <i class="fas fa-plus"></i>
-        Add new service
+<h1 class="display-1">{{service.name}} Details</h1>
+<a href="{{url_for('admin.add_service')}}" class="btn btn-success">
+    <i class="fas fa-plus"></i>
+    Add new service
+</a>
+<h2 class="disply-2">Services:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Service ID</th>
+            <th>Service Name</th>
+            <th>Base Price</th>
+            <th>Time Required</th>
+            <th>Description</th>
+            <th>No of professionals</th>
+            <th>No if requests</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{service.id}}</td>
+            <td>{{service.name}}</td>
+            <td><span>&#8377;</span> {{service.base_price}}</td>
+            <td>{{service.time_required}}</td>
+            <td>{{service.description}}</td>
+            <td>{{service.professional|length}}</td>
+            <td>{{service.service_requests|length}}</td>
+            <td>
+                <a href="{{url_for('admin.edit_service', id=service.id)}}" , class="btn btn-primary">
+                    <i class="fas fa-edit"></i>
+                    Edit
+                </a>
+                <a href="{{url_for('admin.delete_service', id=service.id)}}" , class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                    Delete
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div style="margin-top: 50px; text-align: center;">
+    <!-- Back to Dashboard Button -->
+    <a href="{{ url_for('admin.admin_dashboard') }}">
+        <button
+            style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Back to Dashboard
+        </button>
     </a>
-    <h2 class="disply-2">Services:</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Service ID</th>
-                <th>Service Name</th>
-                <th>Base Price</th>
-                <th>Time Required</th>
-                <th>Description</th>
-                <th>No of professionals</th>
-                <th>No if requests</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{service.id}}</td>
-                <td>{{service.name}}</td>
-                <td><span>&#8377;</span> {{service.base_price}}</td>
-                <td>{{service.time_required}}</td>
-                <td>{{service.description}}</td>
-                <td>{{service.professional|length}}</td>
-                <td>{{service.service_requests|length}}</td>
-                <td>
-                    <a href="{{url_for('edit_service', id=service.id)}}", class="btn btn-primary">
-                        <i class="fas fa-edit"></i>
-                        Edit
-                    </a>
-                    <a href="{{url_for('delete_service', id=service.id)}}", class="btn btn-danger">
-                        <i class="fas fa-trash"></i>
-                        Delete 
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div style="margin-top: 50px; text-align: center;">
-        <!-- Back to Dashboard Button -->
-        <a href="{{ url_for('admin_dashboard') }}">
-            <button style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                Back to Dashboard
-            </button>
-        </a>
-      </div>
-      
+</div>
+
 {% endblock %}
