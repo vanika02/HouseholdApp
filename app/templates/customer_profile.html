@@ -1,39 +1,39 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    Profile
+Profile
 {% endblock %}
 
 {% block content %}
-    
+
 <h2 class="display-2">{{customer.fullname | title}} Profile</h2>
 <div class="profile-pic">
     <img src="https://api.dicebear.com/9.x/lorelei/svg?seed={{user.username}}" width="100" alt="">
 </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Full Name</th>
-                    <th>Username</th>
-                    <th>Email ID</th>
-                    <th>Address</th>
-                    <th>No of Requests</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                    <tr>
-                        <td>{{ customer.id }}</td>
-                        <td>{{ customer.fullname }}</td>
-                        <td>{{user.username}}</td>
-                        <td>{{customer.email_id}}</td>
-                        <td>{{customer.address}}</td>
-                        <td>{{customer.service_requests | length }}</td>
-                        <td>
-                            <a href="{{ url_for('edit_customer') }}" class="btn btn-primary">Edit</a>
-                        </td>
-                    </tr>
-            </tbody>
-        </table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Username</th>
+            <th>Email ID</th>
+            <th>Address</th>
+            <th>No of Requests</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ customer.id }}</td>
+            <td>{{ customer.fullname }}</td>
+            <td>{{user.username}}</td>
+            <td>{{customer.email_id}}</td>
+            <td>{{customer.address}}</td>
+            <td>{{customer.service_requests | length }}</td>
+            <td>
+                <a href="{{ url_for('customer.edit_customer') }}" class="btn btn-primary">Edit</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
 {% endblock %}
