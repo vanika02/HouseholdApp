@@ -81,7 +81,7 @@ def login():
             if user.is_blocked:
                 flash("Your account has been blocked!")
                 return redirect(url_for("auth.login"))
-            return redirect(url_for("customer_dashboard"))
+            return redirect(url_for("customer.customer_dashboard"))
 
         else:
             flash("Invalid role detected. Please contact support.")

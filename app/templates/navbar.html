@@ -29,9 +29,9 @@
         {% endif %}
         {% elif session.get('user_role') == 'customer' %}
         {% if not session.get('is_blocked') %}
-        <li><a href="{{url_for('customer_profile')}}" class="nav-link">Profile</a></li>
-        <li><a href="{{url_for('customer_summary')}}" class="nav-link">Summary</a></li>
-        <li><a href="{{url_for('logout')}}" class="nav-link">Logout</a></li>
+        <li><a href="{{url_for('customer.customer_profile')}}" class="nav-link">Profile</a></li>
+        <li><a href="{{url_for('customer.customer_summary')}}" class="nav-link">Summary</a></li>
+        <li><a href="{{url_for('auth.logout')}}" class="nav-link">Logout</a></li>
         {% else %}
         <ul class="menu-wrapper ms-auto">
             <li><a href="{{ url_for('customer.cust_register') }}" class="nav-link">Register as Customer</a></li>
