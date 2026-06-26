@@ -77,21 +77,21 @@ def add_service():
         # validate form inputs
         if not name or not base_price or not time_required or not description:
             flash("Please fill out all the fileds!")
-            return redirect(url_for("add_service"))
+            return redirect(url_for("admin.add_service"))
         
         name_lower = name.strip().lower()
         # unique constraint check
         service = Service.query.filter_by(name=name_lower).first()
         if service:
             flash("Service already exists!")
-            return redirect(url_for("add_service"))
+            return redirect(url_for("admin.add_service"))
         
         new_service = Service(name=name_lower, base_price=base_price, time_required=time_required, description=description)
         db.session.add(new_service)
         db.session.commit()
         
         flash("Service added successfully!")
-        return redirect(url_for("admin_dashboard"))
+        return redirect(url_for("admin.admin_dashboard"))
     
 
     return render_template("/services/add.html") 
