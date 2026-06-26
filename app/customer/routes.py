@@ -181,7 +181,7 @@ def close_request(id):
         service_request.status = "closed"
         db.session.commit()
         flash("Thank you for your feedback. Service is closed successfully!")
-        return redirect(url_for("customer_dashboard"))
+        return redirect(url_for("customer.customer_dashboard"))
     
     return render_template("/customer/close.html", service_request=service_request)
 
@@ -228,7 +228,7 @@ def edit_customer():
 
         if not email or address or pin_code:
             flash("Please provide all the details!")
-            return redirect(url_for("customer_dashboard"))
+            return redirect(url_for("customer.customer_dashboard"))
         
         
         customer.email_id = email
@@ -236,7 +236,7 @@ def edit_customer():
         customer.pin_code = pin_code
         db.session.commit()
         flash("Profile updated successfully")
-        return redirect(url_for("customer_dashboard"))
+        return redirect(url_for("customer.customer_dashboard"))
 
     return render_template("customer_edit.html",  user=user, customer=customer)
 
@@ -290,7 +290,7 @@ def book_service(professional_id,service_id):
         db.session.add(service_request)
         db.session.commit()
         flash("Request send successfully!")
-        return redirect(url_for("customer_dashboard"))
+        return redirect(url_for("customer.customer_dashboard"))
     
     current_date = date.today().isoformat()
     service = Service.query.filter_by(id=service_id).first()
@@ -311,6 +311,6 @@ def edit_service_request(request_id):
         service_request.pin_code = pin_code
         db.session.commit()
         flash("Service request date updated successfully!")
-        return redirect(url_for("customer_dashboard"))
+        return redirect(url_for("customer.customer_dashboard"))
 
     return render_template("customer/edit.html", service_request=service_request, current_date=service_request.date_of_request)
