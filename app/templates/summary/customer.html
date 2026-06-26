@@ -1,10 +1,9 @@
-
 <div>
-    <div style="margin-top: 50px; text-align: center;">
-      <h1>Service Request status</h1>
+  <div style="margin-top: 50px; text-align: center;">
+    <h1>Service Request status</h1>
     <canvas id="statusChart" width="600" height="400"></canvas>
   </div>
-  
+
   <style>
     #statusChart {
       max-width: 600px;
@@ -20,7 +19,7 @@
     const statusCtx = document.getElementById('statusChart');
     const statusLabels = JSON.parse('{{ status_labels | tojson | safe }}');
     const statusValues = JSON.parse('{{ status_values | tojson | safe }}');
-  
+
     new Chart(statusCtx, {
       type: 'bar',
       data: {
@@ -51,12 +50,13 @@
         },
       },
     });
-</script>
-<div style="margin-top: 50px; text-align: center;">
-  <!-- Back to Dashboard Button -->
-  <a href="{{ url_for('customer_dashboard') }}">
-      <button style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
-          Back to Dashboard
+  </script>
+  <div style="margin-top: 50px; text-align: center;">
+    <!-- Back to Dashboard Button -->
+    <a href="{{ url_for('customer.customer_dashboard') }}">
+      <button
+        style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        Back to Dashboard
       </button>
-  </a>
-</div>
+    </a>
+  </div>
