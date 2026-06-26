@@ -29,7 +29,7 @@ def admin_dashboard():
 
     if user.role != 'admin':
         flash("Access Denied: Admin only!")
-        return redirect(url_for("login"))
+        return redirect(url_for("admin.login"))
 
     # retrieve search parameters
     search_type = request.args.get("search_type")
