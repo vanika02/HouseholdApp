@@ -44,7 +44,7 @@
                     {% if session.get('user_role') == 'admin' %}
                         {{ url_for('admin.admin_dashboard') }}
                     {% elif session.get('user_role') == 'customer' %}
-                        {{ url_for('customer_dashboard') }}
+                        {{ url_for('customer.customer_dashboard') }}
                     {% elif session.get('user_role') == 'professional' %}
                         {{ url_for('professional_dashboard') }}
                     {% endif %}

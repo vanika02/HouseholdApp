@@ -1,36 +1,38 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    Customer Dashboard
+Customer Dashboard
 {% endblock %}
 
 {% block content %}
 {% include 'searchbar.html' with context %}
 <div>
-    <h1 class="display-1 text-center">All Services</h1>
+  <h1 class="display-1 text-center">All Services</h1>
 </div>
 
 <div class="container my-5">
-    <div class="row">
-        {% for entry in services_with_professionals %}
-            {% set service = entry.service %}
-            {% set professionals = entry.professionals %}
-            {% for professional in professionals %}
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card service-card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ professional.fullname | title }}</h5>
-                            <p class="card-text"><strong>Service: </strong>{{ professional.description }}</p>
-                            <p class="card-text"><strong>Time Required: </strong>{{ service.time_required }}</p>
-                            <p class="card-text"><strong>Ratings: </strong>{{ professionals_with_average_rating[professional]}} / 5</p>
-                            <p class="card-text"><strong>Price: <span>&#8377; </span></strong>{{ professional.service_price + service.base_price }}</p>
-                            <a href="{{ url_for('book_service', professional_id=professional.id, service_id=service.id) }}" class="btn btn-primary">Book Service</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% endfor %}
+  <div class="row">
+    {% for entry in services_with_professionals %}
+    {% set service = entry.service %}
+    {% set professionals = entry.professionals %}
+    {% for professional in professionals %}
+    <div class="col-12 col-md-4 mb-4">
+      <div class="card service-card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ professional.fullname | title }}</h5>
+          <p class="card-text"><strong>Service: </strong>{{ professional.description }}</p>
+          <p class="card-text"><strong>Time Required: </strong>{{ service.time_required }}</p>
+          <p class="card-text"><strong>Ratings: </strong>{{ professionals_with_average_rating[professional]}} / 5</p>
+          <p class="card-text"><strong>Price: <span>&#8377; </span></strong>{{ professional.service_price +
+            service.base_price }}</p>
+          <a href="{{ url_for('book_service', professional_id=professional.id, service_id=service.id) }}"
+            class="btn btn-primary">Book Service</a>
+        </div>
+      </div>
     </div>
+    {% endfor %}
+    {% endfor %}
+  </div>
 </div>
 
 <div class="container my-5">
@@ -42,103 +44,104 @@
         <th>Date Of Request</th>
         <th>Status</th>
         {% for service_request in service_requests %}
-          {% if service_request.status == "completed" %}
-            <th>Actions</th>
-          {% endif %}
+        {% if service_request.status == "completed" %}
+        <th>Actions</th>
+        {% endif %}
         {% endfor %}
       </tr>
     </thead>
     <tbody>
       {% for service_request in service_requests %}
-        <tr>
-          <td>{{ service_request.id }}</td>
-          <td>{{ service_request.date_of_request }}</td>
-          <td>{{ service_request.status | title }}</td>
-          {% if service_request.status == "completed" %}
-            <td>
-              <a href="{{ url_for('close_request', id=service_request.id) }}" class="btn btn-warning">
-                <i class="fas fa-check"></i> Close
-              </a>
-            </td>
-          {% elif service_request.status == "closed" %}
-            <td>
-              <a href=" " class="btn btn-danger">
-                <i class="fas fa-check"></i> Closed
-              </a>
-            </td>
-          {% elif service_request.status == "accepted" %}
-            <td>
-              <a href=" " class="btn btn-success">
-                <i class="fas fa-check"></i> Accepted
-              </a>
-            </td>
-          {% endif %}
-        </tr>
+      <tr>
+        <td>{{ service_request.id }}</td>
+        <td>{{ service_request.date_of_request }}</td>
+        <td>{{ service_request.status | title }}</td>
+        {% if service_request.status == "completed" %}
+        <td>
+          <a href="{{ url_for('close_request', id=service_request.id) }}" class="btn btn-warning">
+            <i class="fas fa-check"></i> Close
+          </a>
+        </td>
+        {% elif service_request.status == "closed" %}
+        <td>
+          <a href=" " class="btn btn-danger">
+            <i class="fas fa-check"></i> Closed
+          </a>
+        </td>
+        {% elif service_request.status == "accepted" %}
+        <td>
+          <a href=" " class="btn btn-success">
+            <i class="fas fa-check"></i> Accepted
+          </a>
+        </td>
+        {% endif %}
+      </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
 
 <div class="text-center mt-5">
-  <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">Logout</a>
+  <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-danger">Logout</a>
 </div>
 
 
 {% block styles %}
 <style>
-/* Card hover effect */
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
-}
+  /* Card hover effect */
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
 
-.card-title {
-  color: #007bff;
-}
+  .card-title {
+    color: #007bff;
+  }
 
-.card-body {
-  background-color: #f9f9f9;
-}
+  .card-body {
+    background-color: #f9f9f9;
+  }
 
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-}
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
 
-.btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #004085;
-}
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+  }
 
-/* Styling table */
-.table {
-  background-color: #f9f9f9;
-}
+  /* Styling table */
+  .table {
+    background-color: #f9f9f9;
+  }
 
-.table th, .table td {
-  text-align: center;
-}
+  .table th,
+  .table td {
+    text-align: center;
+  }
 
-.table thead {
-  background-color: #007bff;
-  color: white;
-}
+  .table thead {
+    background-color: #007bff;
+    color: white;
+  }
 
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: #f1f1f1;
-}
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f1f1f1;
+  }
 
-/* Custom button for logout */
-.btn-outline-danger {
-  border-color: #dc3545;
-  color: #dc3545;
-}
+  /* Custom button for logout */
+  .btn-outline-danger {
+    border-color: #dc3545;
+    color: #dc3545;
+  }
 
-.btn-outline-danger:hover {
-  background-color: #dc3545;
-  color: white;
-}
+  .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+  }
 </style>
 {% endblock %}
 {% endblock %}

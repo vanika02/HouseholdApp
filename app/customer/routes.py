@@ -53,7 +53,7 @@ def cust_register():
         db.session.add(new_customer)
         db.session.commit()
 
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
     
     return render_template('register_cust.html')
 
@@ -68,12 +68,12 @@ def customer_dashboard():
     # Check user role 
     if role != 'customer':   
         flash("Access Denied: Registered Customers only!")
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
     
     # Check user ID
     if user_id != user.id:
         flash("Access Denied! User not Valid.")
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
 
     # Retrieve search parameters
     search_type = request.args.get("search_type")
@@ -166,7 +166,7 @@ def close_request(id):
     
     if service_request.id != id:
         flash("unauthorized access. Login to continue")
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
 
     if request.method == "POST":
         rating = float(request.form.get("rating"))
@@ -248,11 +248,11 @@ def customer_profile():
 
     if not user_id:
         flash("Unauthorized access. Login to continue")
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
     
     if user_role != "customer":
         flash("Unauthorized access. Login to continue")
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
 
     user = User.query.filter_by(id=user_id).first()
     customer = Customer.query.filter_by(user_id=user_id).first()
