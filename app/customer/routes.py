@@ -225,8 +225,11 @@ def edit_customer():
         email = request.form.get("email")
         address = request.form.get("address")
         pin_code = request.form.get("pin_code")
+        # print(email)
+        # print(address)
+        # print(pin_code)
 
-        if not email or address or pin_code:
+        if not email or not address or not pin_code:
             flash("Please provide all the details!")
             return redirect(url_for("customer.customer_dashboard"))
         
