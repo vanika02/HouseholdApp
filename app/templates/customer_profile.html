@@ -6,7 +6,7 @@ Profile
 
 {% block content %}
 
-<div class="card">
+<div class="card-customer">
     <h2 class="display-2">{{customer.fullname | title}} Profile</h2>
     <div class="profile-pic">
         <img src="https://api.dicebear.com/9.x/lorelei/svg?seed={{user.username}}" width="100" alt="">
@@ -39,19 +39,3 @@ Profile
     </table>
 </div>
 {% endblock %}
-
-<style>
-    .card {
-        width: 600px;
-        background: wheat;
-        margin: auto;
-    }
-
-    .card-hover {
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    }
-
-    .container {
-        padding: 3px 12px 9px;
-    }
-</style>

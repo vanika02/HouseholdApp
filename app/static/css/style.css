@@ -1,71 +1,100 @@
 /* Ensure the form is centered and has space around it */
 .custom-fieldset {
-    border: 2px solid #007bff; /* Blue border for the fieldset */
-    border-radius: 10px; /* Rounded corners */
-    padding: 30px; /* Padding inside the fieldset */
-    background-color: #f8f9fa; /* Light background for the form */
-    width: 100%; 
-    max-width: 600px; 
-    margin: 50px auto; 
+    border: 2px solid #007bff;
+    /* Blue border for the fieldset */
+    border-radius: 10px;
+    /* Rounded corners */
+    padding: 30px;
+    /* Padding inside the fieldset */
+    background-color: #f8f9fa;
+    /* Light background for the form */
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Style for the legend (title) */
 legend {
-    font-size: 2rem; /* Larger font for the legend */
-    font-weight: 600; /* Bold the title */
-    color: #000; /* Black color for the title */
-    text-align: center; /* Center-align the title */
-    padding-bottom: 15px; /* Space between title and form */
+    font-size: 2rem;
+    /* Larger font for the legend */
+    font-weight: 600;
+    /* Bold the title */
+    color: #000;
+    /* Black color for the title */
+    text-align: center;
+    /* Center-align the title */
+    padding-bottom: 15px;
+    /* Space between title and form */
 }
 
 /* Style the form input fields */
 .custom-input {
-    width: 100%; /* Input fields will take full width of the container */
-    padding: 10px; /* Add padding */
-    border-radius: 4px; /* Rounded corners */
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
-    border: 1px solid #ccc; /* Default border color */
-    margin-bottom: 15px; /* Spacing between input fields */
-    font-size: 1rem; /* Ensure input text is easily readable */
+    width: 100%;
+    /* Input fields will take full width of the container */
+    padding: 10px;
+    /* Add padding */
+    border-radius: 4px;
+    /* Rounded corners */
+    transition: all 0.3s ease-in-out;
+    /* Smooth transition for hover effect */
+    border: 1px solid #ccc;
+    /* Default border color */
+    margin-bottom: 15px;
+    /* Spacing between input fields */
+    font-size: 1rem;
+    /* Ensure input text is easily readable */
 }
 
 /* Hover effect for input fields */
 .custom-input:hover {
-    border-color: #007bff; /* Change border color on hover */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow on hover */
+    border-color: #007bff;
+    /* Change border color on hover */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    /* Subtle shadow on hover */
 }
 
 /* Focus effect for input fields */
 .custom-input:focus {
-    border-color: #0056b3; /* Darker border on focus */
-    box-shadow: 0 0 8px rgba(0, 86, 179, 0.5); /* Stronger shadow on focus */
-    outline: none; /* Remove default outline */
+    border-color: #0056b3;
+    /* Darker border on focus */
+    box-shadow: 0 0 8px rgba(0, 86, 179, 0.5);
+    /* Stronger shadow on focus */
+    outline: none;
+    /* Remove default outline */
 }
 
 /* Style for the labels */
 .form-label {
-    font-size: 1.1rem; /* Slightly larger font for labels */
-    font-weight: 600; /* Bold the labels */
-    color: #333; /* Dark color for labels */
-    margin-bottom: 5px; /* Add spacing between label and input */
+    font-size: 1.1rem;
+    /* Slightly larger font for labels */
+    font-weight: 600;
+    /* Bold the labels */
+    color: #333;
+    /* Dark color for labels */
+    margin-bottom: 5px;
+    /* Add spacing between label and input */
 }
 
 /* Style for the submit button */
 
 /* Hover effect for the submit button */
 .btn-primary:hover {
-    background-color: #333; /* Darken button background on hover */
+    background-color: #333;
+    /* Darken button background on hover */
 }
 
 /* Optional: Center the form and content */
 .form-group {
-    text-align: left; /* Align input fields to the left */
-    margin-bottom: 20px; /* Add space between each group */
+    text-align: left;
+    /* Align input fields to the left */
+    margin-bottom: 20px;
+    /* Add space between each group */
 }
 
 .text-center {
-    text-align: center; /* Center the header and button */
+    text-align: center;
+    /* Center the header and button */
 }
 
 /* Custom font styles for the admin dashboard */
@@ -73,9 +102,12 @@ h1.display-1 {
     font-family: 'Arial', sans-serif;
     font-weight: bold;
     color: #333;
-    font-size: 2.5rem; /* Adjust size for the "Welcome Admin" */
-    text-align: center; /* Center the heading */
-    margin-top: 50px; /* Add space between navbar and heading */
+    font-size: 2.5rem;
+    /* Adjust size for the "Welcome Admin" */
+    text-align: center;
+    /* Center the heading */
+    margin-top: 50px;
+    /* Add space between navbar and heading */
     margin-bottom: 30px;
 }
 
@@ -83,7 +115,8 @@ h1.display-1 {
 h2.display-2 {
     font-family: 'Arial', sans-serif;
     font-weight: 600;
-    color: #007bff; /* Blue color for sub-headings */
+    color: #007bff;
+    /* Blue color for sub-headings */
     font-size: 2rem;
     margin-top: 40px;
     margin-bottom: 20px;
@@ -97,7 +130,8 @@ h2.display-2 {
     border: 1px solid #ddd;
 }
 
-.table th, .table td {
+.table th,
+.table td {
     padding: 15px;
     text-align: left;
     padding: 12px;
@@ -113,14 +147,16 @@ h2.display-2 {
 }
 
 .table tbody tr:hover {
-    background-color: #f1f1f1; /* Light gray on hover */
+    background-color: #f1f1f1;
+    /* Light gray on hover */
     cursor: pointer;
 }
 
 .table th {
     font-size: 1.2rem;
     font-weight: 600;
-    color:#007bff; /* Blue color for headers */
+    color: #007bff;
+    /* Blue color for headers */
 }
 
 .table td {
@@ -186,4 +222,15 @@ h2.display-2 {
     border-radius: 20px;
     border: 1px solid #ccc;
     font-size: 1.2rem;
+}
+
+
+/* style for customer profile */
+
+.card-customer {
+    width: 600px;
+    margin: auto;
+    margin-top: 100px;
+    background: wheat;
+    /* align-self: center; */
 }
