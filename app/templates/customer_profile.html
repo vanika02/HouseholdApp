@@ -14,6 +14,27 @@ Profile
             <span class="profile-label">ID</span>
             <span class="profile-value">{{ customer.id }}</span>
         </div>
+        <div class="profile-row">
+            <span class="profile-label">Full Name</span>
+            <span class="profile-value">{{ customer.fullname }}</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">Username</span>
+            <span class="profile-value">{{ user.username }}</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">Email</span>
+            <span class="profile-value">{{ customer.email_id }}</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">Address</span>
+            <span class="profile-value">{{ customer.address }}</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">Requests</span>
+            <span class="profile-value">{{ customer.seervice_requests | length }}</span>
+        </div>
     </div>
+    <a href="{{ url_for('customer.edit_customer') }}" class="btn btn-primary edit-btn">Edit Profile</a>
 </div>
 {% endblock %}
