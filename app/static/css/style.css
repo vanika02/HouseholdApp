@@ -262,3 +262,10 @@ h2.display-2 {
 .profile-details {
     margin: 20px;
 }
+
+.profile-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+}
