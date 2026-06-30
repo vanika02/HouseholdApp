@@ -9,31 +9,11 @@ Profile
 <div class="card-customer">
     <h2 class="customer-name">{{customer.fullname | title}} Profile</h2>
     <img class="customer-pic" src="https://api.dicebear.com/9.x/lorelei/svg?seed={{user.username}}" width="100" alt="">
-    <table class="container">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Full Name</th>
-                <th>Username</th>
-                <th>Email ID</th>
-                <th>Address</th>
-                <th>No of Requests</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ customer.id }}</td>
-                <td>{{ customer.fullname }}</td>
-                <td>{{user.username}}</td>
-                <td>{{customer.email_id}}</td>
-                <td>{{customer.address}}</td>
-                <td>{{customer.service_requests | length }}</td>
-                <td>
-                    <a href="{{ url_for('customer.edit_customer') }}" class="btn btn-primary">Edit</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="profile-details">
+        <div class="profile-row">
+            <span class="profile-label">ID</span>
+            <span class="profile-value">{{ customer.id }}</span>
+        </div>
+    </div>
 </div>
 {% endblock %}
