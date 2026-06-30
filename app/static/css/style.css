@@ -229,9 +229,10 @@ h2.display-2 {
 
 .card-customer {
     width: 100%;
-    min-height: 70vh;
-    margin: auto;
+    min-height: 80vh;
+    /* margin: auto; */
     margin-top: 100px;
+    margin-bottom: 60px;
     background: linear-gradient(354deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
     display: flexbox;
     flex-direction: column;
@@ -268,4 +269,18 @@ h2.display-2 {
     justify-content: space-between;
     padding: 12px 0;
     border-bottom: 1px solid #ddd;
+}
+
+.profile-label {
+    font-weight: bold;
+    color: #ddd;
+}
+
+.profile-vale {
+    color: #222;
+}
+
+.edit-btn {
+    margin-top: 25px;
+    width: 100%;
 }
