@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template
-from app.models import Service
+from app.models import User, Service
 
 prof_router = Blueprint("professional", __name__)
 
