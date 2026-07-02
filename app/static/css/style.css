@@ -281,6 +281,21 @@ h2.display-2 {
 }
 
 .edit-btn {
-    margin-top: 25px;
-    width: 100%;
+    border-radius: 999px;
+    box-sizing: border-box;
+    /* background-color: #ccc; */
+    color: #000;
+    display: block;
+    font-weight: 900;
+    -webkit-mask-image: none;
+    overflow: hidden;
+    padding: 0.8rem 0.5rem;
+    position: relative;
+    text-transform: uppercase;
+    transition: 0.2s;
+}
+
+.edit-btn:hover {
+    box-shadow: 0 6px 0 -4px #fff, 0 9px 0 -4px #aaa, 0 12px 0 -4px #000;
+    transform: translateY(-5px);
 }
