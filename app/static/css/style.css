@@ -229,10 +229,12 @@ h2.display-2 {
 
 .card-customer {
     width: 100%;
-    min-height: 80vh;
+    min-height: 82vh;
     /* margin: auto; */
     margin-top: 100px;
     margin-bottom: 60px;
+    margin-left: 20px;
+    margin-right: 20px;
     background: #EEE4B1;
     display: flexbox;
     flex-direction: column;
@@ -250,7 +252,7 @@ h2.display-2 {
     font-size: 30px;
     font-weight: 700;
     color: white;
-    text-shadow: 4px 3px 0 #7A7A7A;
+    text-shadow: 4px 3px 0 #332941;
 }
 
 .customer-pic {
@@ -268,23 +270,26 @@ h2.display-2 {
     display: flex;
     justify-content: space-between;
     padding: 12px 0;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #3D3B40;
 }
 
 .profile-label {
     font-weight: bold;
-    color: #ddd;
+    color: #332941;
 }
 
 .profile-value {
-    color: #222;
+    color: #332941;
     font-weight: 700;
 }
 
 .edit-btn {
     border-radius: 999px;
     box-sizing: border-box;
-    /* background-color: #ccc; */
+    background-color: #F3F8FF;
+    margin-left: 30px;
+    margin-right: 30px;
+    /* margin-bottom: 90px; */
     color: #000;
     display: block;
     font-weight: 900;
@@ -297,6 +302,7 @@ h2.display-2 {
 }
 
 .edit-btn:hover {
-    box-shadow: 0 6px 0 -4px #fff, 0 9px 0 -4px #aaa, 0 12px 0 -4px #000;
+    box-shadow: 0 6px 0 -4px #7D0A0A, 0 9px 0 -4px #7D0A0A, 0 12px 0 -4px #000;
     transform: translateY(-5px);
+    background-color: #BF3131;
 }
