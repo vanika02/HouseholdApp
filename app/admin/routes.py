@@ -191,3 +191,41 @@ def admin_summary():
     rating_counts = list(rating_distribution.values())
 
     return render_template("/summary/admin.html", service_names=service_names, request_counts=request_counts,  rating_labels=rating_labels, rating_counts=rating_counts)
+
+@admin_router.route('/customer/<int:id>/block')
+@admin_required
+def block_customer(id):
+    customer = Customer.query.get(id)
+    user = User.query.get(customer.user_id)
+    
+    if not customer:
+        flash("Customer does not exist!")
+        return redirect(url_for("admin.admin_dashboard"))
+
+    if user.is_blocked:
+        flash("Customer is blocked!")
+        return redirect(url_for("admin.admin_dashboard"))
+    else:
+        user.is_blocked = True
+        db.session.commit()
+        flash("Customer has been successfully Blocked!")
+        return redirect(url_for("admin.admin_dashboard"))
+
+@admin_router.route('/customer/<int:id>/unblock')
+@admin_required
+def unblock_customer(id):
+    customer = Customer.query.get(id)
+    user = User.query.get(customer.user_id)
+    
+    if not customer:
+        flash("Customer does not exist!")
+        return redirect(url_for("admin.admin_dashboard"))
+
+    if not user.is_blocked:
+        flash("Customer is not blocked!")
+        return redirect(url_for("admin.admin_dashboard"))
+    else:
+        user.is_blocked = False
+        db.session.commit()
+        flash("Customer has been successfully unblocked!")
+        return redirect(url_for("admin.admin_dashboard"))
