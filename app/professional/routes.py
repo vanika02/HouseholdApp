@@ -1,5 +1,8 @@
-from flask import Blueprint, request, render_template
+from flask import Blueprint, request, render_template, flash
 from app.models import User, Service
+from app.extensions import db
+from werkzeug.security import generate_password_hash
+from werkzeug.utils import secure_filename
 
 prof_router = Blueprint("professional", __name__)
 
