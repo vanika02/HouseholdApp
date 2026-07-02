@@ -1,69 +1,72 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-     Welcome Admin
+Welcome Admin
 {% endblock %}
 
 {% block content %}
-    {% include 'searchbar.html' with context  %}
-    <h1 class="display-1">Welcome {{professional.fullname}}</h1>
-    <div>  
-        <h2 class="disply-2">Service Requests</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Service Request ID</th>
-                    <th>Date Of Request</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for service_request in service_requests %}
-                <tr>
-                    <td>{{service_request.id}}</td>
-                    <td>{{service_request.date_of_request}}</td>
-                    <td>{{service_request.status}}</td>
-                    <td>
-                        {% if service_request.status == "accepted" %}
-                            <a href="{{url_for('accept_request', id=service_request.id)}}" class="btn btn-success">
-                                <i class="fas fa-search"></i>
-                                Accepted
-                            </a>
-                        {% elif service_request.status != "accepted" and service_request.status != "closed" and service_request.status != "completed"%}
-                            <a href="{{url_for('accept_request', id=service_request.id)}}" class="btn btn-primary">
-                                <i class="fas fa-search"></i>
-                                Accept
-                            </a>
-                        {% endif %}    
-                            {% if service_request.status == "rejected" %}
-                        <a href=" " class="btn btn-danger">
-                            <i class="fas fa-warning"></i>
-                            Rejected
-                        </a>
-                        {% elif service_request.status != "rejected" and service_request.status != "closed" and service_request.status != "completed"%}
-                            <a href="{{url_for('reject_request', service_request_id=service_request.id)}}" class="btn btn-danger">
-                                <i class="fas fa-warning"></i>
-                                Reject
-                            </a>
-                        {% endif %}    
-                        {% if service_request.status == "accepted" %}
-                            <a href="{{url_for('complete_request', id=service_request.id)}}" class="btn btn-primary">
-                                <i class="fas fa-check"></i>
-                                Complete
-                            </a>
-                        {% elif service_request.status == "closed" %}
-                            <a href="{{url_for('complete_request', id=service_request.id)}}" class="btn btn-success">
-                                <i class="fas fa-check"></i>
-                                Closed
-                            </a>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+{% include 'searchbar.html' with context %}
+<h1 class="display-1">Welcome {{professional.fullname}}</h1>
+<div>
+    <h2 class="disply-2">Service Requests</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Service Request ID</th>
+                <th>Date Of Request</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service_request in service_requests %}
+            <tr>
+                <td>{{service_request.id}}</td>
+                <td>{{service_request.date_of_request}}</td>
+                <td>{{service_request.status}}</td>
+                <td>
+                    {% if service_request.status == "accepted" %}
+                    <a href="{{url_for('professional.accept_request', id=service_request.id)}}" class="btn btn-success">
+                        <i class="fas fa-search"></i>
+                        Accepted
+                    </a>
+                    {% elif service_request.status != "accepted" and service_request.status != "closed" and
+                    service_request.status != "completed"%}
+                    <a href="{{url_for('professional.accept_request', id=service_request.id)}}" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                        Accept
+                    </a>
+                    {% endif %}
+                    {% if service_request.status == "rejected" %}
+                    <a href=" " class="btn btn-danger">
+                        <i class="fas fa-warning"></i>
+                        Rejected
+                    </a>
+                    {% elif service_request.status != "rejected" and service_request.status != "closed" and
+                    service_request.status != "completed"%}
+                    <a href="{{url_for('reject_request', service_request_id=service_request.id)}}"
+                        class="btn btn-danger">
+                        <i class="fas fa-warning"></i>
+                        Reject
+                    </a>
+                    {% endif %}
+                    {% if service_request.status == "accepted" %}
+                    <a href="{{url_for('complete_request', id=service_request.id)}}" class="btn btn-primary">
+                        <i class="fas fa-check"></i>
+                        Complete
+                    </a>
+                    {% elif service_request.status == "closed" %}
+                    <a href="{{url_for('complete_request', id=service_request.id)}}" class="btn btn-success">
+                        <i class="fas fa-check"></i>
+                        Closed
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-    <a href="{{url_for('logout')}}" class="btn btn-outline-danger">Logout</a>
+<a href="{{url_for('logout')}}" class="btn btn-outline-danger">Logout</a>
 {% endblock %}

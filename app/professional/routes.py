@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, flash
+from flask import Blueprint, request, render_template, flash, redirect, url_for
 from app.models import User, Service
 from app.extensions import db
 from werkzeug.security import generate_password_hash
@@ -36,13 +36,13 @@ def prof_register():
         age = int(age)
         if age < 18:
             flash("Only Professionals above 18 allowed!")
-            return redirect(url_for('prof_register'))
+            return redirect(url_for('professional.prof_register'))
         
         user = User.query.filter_by(username=username).first()
 
         if user:
             flash("Username already exists!")
-            return redirect(url_for('prof_register'))
+            return redirect(url_for('professional.prof_register'))
         
         # hash the password
         password_hash = generate_password_hash(password)
