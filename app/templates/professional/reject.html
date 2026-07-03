@@ -1,18 +1,18 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    Delete Service
+Delete Service
 {% endblock %}
 
 {% block content %}
-<h1 class="display-1">
+<h1 class="rej-title">
     Reject Professional
 </h1>
-<p class="f-3">Are you sure you want to reject {{professional.fullname}}</p>
+<p class="rej-text">Are you sure you want to reject {{professional.fullname}}?</p>
 
-<form action="{{ url_for('reject_professional', id=professional.id)}}" method="POST" class="form">
+<form action="{{ url_for('admin.reject_professional', id=professional.id)}}" method="POST" class="form">
     <div class="form-group">
-        <button type="submit" class="btn btn-danger">
+        <button type="submit" class="rej-btn">
             <i class="fas fa-trash"></i>
             Reject
         </button>
