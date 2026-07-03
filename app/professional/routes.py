@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, flash, redirect, url_for
+from flask import Blueprint, request, render_template, flash, redirect, url_for, current_app
 from app.models import User, Service, Professional
 from app.extensions import db
 from werkzeug.security import generate_password_hash
@@ -35,7 +35,7 @@ def prof_register():
                 return redirect(url_for('professional.prof_register'))
             
             # email validation
-            email_exists = Professional.query.filter_by(email=email).first()
+            email_exists = Professional.query.filter_by(email_id=email).first()
             if email_exists:
                 flash("Email already exists try another!")
                 return redirect(url_for('professional.prof_register'))
@@ -60,7 +60,7 @@ def prof_register():
 
             #  saving document
             filename = secure_filename(document.filename)
-            document_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            document_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
             document.save(document_path)
 
 
