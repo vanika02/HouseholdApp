@@ -4,6 +4,7 @@ from app.extensions import db
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 import os
+import uuid
 
 prof_router = Blueprint("professional", __name__)
 
@@ -59,7 +60,7 @@ def prof_register():
             db.session.flush()
 
             #  saving document
-            filename = secure_filename(document.filename)
+            filename = f"{uuid.uuid4()}_{secure_filename(document.filename)}"
             document_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
             document.save(document_path)
 
@@ -67,7 +68,7 @@ def prof_register():
             new_professional = Professional(user_id = new_user.id, email_id=email, fullname=fullname, address=address, pin_code = pin, document=filename, service_price=service_price,experience=experience, description=description, service_id=service_id, is_rejected=False, age=age)
             db.session.add(new_professional)
             db.session.commit()
-            return redirect(url_for('login'))
+            return redirect(url_for('auth.login'))
 
         except Exception as e:
             db.session.rollback()
