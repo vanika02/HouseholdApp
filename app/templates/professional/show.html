@@ -4,11 +4,90 @@
 {{ professional.fullname | title }} Details
 {% endblock %}
 {% block content %}
+
 <h1 class="display-1 text-center mb-4">{{professional.fullname | title }} Details</h1>
 <h2 class="display-2 mb-4">Details:</h2>
 
 <div class="table-responsive">
-    <table class="table table-bordered table-striped table-hover">
+    <div class="prof-profile-row">
+        <span class="show-label">Professional ID</span>
+        <span class="show-value">{{ professional.id }}</span>
+    </div>
+
+    <div class="prof-profile-row">
+        <span class="show-label">Service Name</span>
+        <span class="show-value">{{professional.service.name}}</span>
+    </div>
+
+    <div class="prof-profile-row">
+        <span class="show-label">Email Id</span>
+        <span class="show-value">{{ professional.email_id }}</span>
+    </div>
+
+    <div class="prof-profile-row">
+        <span class="show-label">Address</span>
+        <span class="show-value">{{ professional.address }}</span>
+    </div>
+
+    <div class="prof-profile-row">
+        <span class="show-label">Full Name</span>
+        <span class="show-value">{{ professional.fullname}}</span>
+    </div>
+
+    <div class="prof-profile-row">
+        <span class="show-label">Pin-Code</span>
+        <span class="show-value">{{ professional.pin_code }}</span>
+    </div>
+
+    <div class="prof-profile-row">
+        <span class="show-label">Document</span>
+        <a href="{{ url_for('static', filename='files/' + professional.document) }}" target="_blank"
+            class="btn btn-link">
+            View Document
+        </a>
+    </div>
+
+    <div class="prof-profile-row">
+        <span class="show-label">Description</span>
+        <span class="show-value">{{ professional.description }}</span>
+    </div>
+
+    <div class="prof-profile-row">
+        <span class="show-label">Experience</span>
+        <span class="show-value">{{ professional.experience }}</span>
+    </div>
+
+    <div class="prof-profile-row">
+        <span class="show-label">Actions</span>
+        {% if professional.user.is_verified %}
+        <a href="" class="btn btn-success ">
+            <i class="fas fa-check"></i> Approved
+        </a>
+        {% else %}
+        <a href="{{url_for('admin.approve_professional', id=professional.id)}}" class="btn btn-primary mt-2 ">
+            <i class="fas fa-check"></i> Approve
+        </a>
+        {% endif %}
+        {% if professional.is_rejected %}
+        <a href="" class="btn btn-warning mt-2">
+            <i class="fas fa-times"></i> Rejected
+        </a>
+        {% elif not professional.is_rejected %}
+        <a href="{{url_for('admin.reject_professional', id=professional.id)}}" class="btn btn-warning mt-2">
+            <i class="fas fa-times"></i> Reject
+        </a>
+        {% endif %}
+        {%if professional.user.is_blocked %}
+        <a href="" class="btn btn-danger mt-2">
+            <i class="fas fa-ban"></i> Blocked
+        </a>
+        {% else %}
+        <a href="{{url_for('admin.block_professional', id=professional.id)}}" class="btn btn-danger mt-2">
+            <i class="fas fa-ban"></i> Block
+        </a>
+        {% endif %}
+    </div>
+    <!-- <table class="table table-bordered table-striped table-hover">
         <thead class="thead-dark">
             <tr>
                 <th>Professional ID</th>
@@ -71,7 +150,7 @@
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
 </div>
 <div style="margin-top: 50px; text-align: center;">
     <!-- Back to Dashboard Button -->
