@@ -327,24 +327,29 @@ h2.display-2 {
 
 .prof-info {
     display: block;
-    width: 100%;
-    padding: 20px;
+    width: 90%;
+    margin: auto;
+    padding: 30px;
     box-sizing: border-box;
-    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 5px 5px 10px rgba(0.2, 0.3, 0.2, 0.2);
     background-color: #E8F5BD;
 }
-
 
 .prof-profile-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px;
+    padding: 12px 0px;
     border-bottom: 0.5px solid #454040;
 }
 
 .prof-profile-row:last-child {
     border-bottom: none;
+}
+
+.prof-profile-row .btn {
+    margin-left: 8px;
+    margin-top: 5px;
 }
 
 .show-label {
@@ -354,10 +359,29 @@ h2.display-2 {
 
 .show-value {
     font-family: 'Times New Roman', Times, serif;
-    font-weight: 700;
+    font-weight: 500;
     padding: 2px;
 }
 
 .prof-doc {
     text-decoration: none;
+}
+
+.prof-back-btn {
+    margin: 50px;
+    text-align: center;
+}
+
+.back-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #C44545;
+    font-weight: bold;
+    color: #FFF6F6;
+}
+
+.back-btn:hover {
+    background-color: #454040;
+    transition: 0.3s;
 }
