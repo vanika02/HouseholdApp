@@ -229,3 +229,105 @@ def unblock_customer(id):
         db.session.commit()
         flash("Customer has been successfully unblocked!")
         return redirect(url_for("admin.admin_dashboard"))
+
+
+@admin_router.route('/professional/<int:id>/show')
+@admin_required
+def show_professional(id):
+    professional = Professional.query.get(id)
+    return render_template("/professional/show.html", professional=professional) 
+
+@admin_router.route('/professional/<int:id>/approve')
+@admin_required
+def approve_professional(id):
+    professional = Professional.query.get(id)
+    user = User.query.get(professional.user_id)
+    
+    if not professional:
+        flash("professional does not exist!")
+        return redirect(url_for("admin_dashboard"))
+
+    if user.is_blocked:
+        flash("Professional is blocked!")
+        return redirect(url_for("admin_dashboard"))
+    if user.is_verified:
+        flash("Professional is already verfied!")
+        return redirect(url_for("admin_dashboard"))
+    
+    if professional.is_rejected:
+        flash("Professional is Rejected!")
+        return redirect(url_for("admin_dashboard"))
+    else:
+        user.is_verified = True
+        db.session.commit()
+        flash("Professional has been verified successfully!")
+        return redirect(url_for("admin_dashboard"))
+
+
+@admin_router.route('/professional/<int:id>/reject', methods=['GET', 'POST'])
+@admin_required
+def reject_professional(id):
+    professional = Professional.query.get(id)
+    if not professional:
+        flash("Professional does not exist!")
+        return redirect(url_for("admin_dashboard"))
+
+    user = User.query.get(professional.user_id)
+    
+    if request.method == "POST":
+        if not professional:
+            flash("Professional does not exist!")
+            return redirect(url_for("admin_dashboard"))
+
+        if user.is_blocked:
+            flash("Professional is already blocked!")
+            return redirect(url_for("admin_dashboard"))
+
+        if user.is_verified:
+            flash("This professional is already approved and cannot be rejected.")
+            return redirect(url_for("admin_dashboard"))
+        
+        professional.is_rejected = True
+        db.session.commit()
+        flash("Professional has been rejected.")
+        return redirect(url_for("admin_dashboard"))
+    else:
+        return render_template("professional/reject.html", professional=professional)
+
+@admin_router.route('/professional/<int:id>/block')
+@admin_required
+def block_professional(id):
+    professional = Professional.query.get(id)
+    user = User.query.get(professional.user_id)
+    
+    if not professional:
+        flash("professional does not exist!")
+        return redirect(url_for("admin_dashboard"))
+
+    if user.is_blocked:
+        flash("Professional is blocked!")
+        return redirect(url_for("admin_dashboard"))
+    else:
+        user.is_blocked = True
+        db.session.commit()
+        flash("Professional has been Blocked!")
+        return redirect(url_for("admin_dashboard"))
+
+@admin_router.route('/professional/<int:id>/unblock')
+@admin_required
+def unblock_professional(id):
+    professional = Professional.query.get(id)
+    user = User.query.get(professional.user_id)
+    
+    if not professional:
+        flash("professional does not exist!")
+        return redirect(url_for("admin_dashboard"))
+
+    if not user.is_blocked:
+        flash("Professional is not blocked!")
+        return redirect(url_for("admin_dashboard"))
+    else:
+        user.is_blocked = False
+        db.session.commit()
+        flash("Professional has been unblocked!")
+        return redirect(url_for("admin_dashboard"))
