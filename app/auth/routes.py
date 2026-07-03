@@ -57,7 +57,7 @@ def login():
             professional = Professional.query.filter_by(user_id=user.id).first()
             if not professional:
                 flash("Professional does not exist! Please register to continue.")
-                return redirect(url_for("prof_register"))
+                return redirect(url_for("professional.prof_register"))
 
             if not user.is_verified:
                 flash("You are not yet verified!")
@@ -69,13 +69,13 @@ def login():
 
             if professional.is_rejected:
                 flash("Your application was rejected by the admin. Please register again.")
-                return redirect(url_for("prof_register"))
+                return redirect(url_for("professional.prof_register"))
 
             if not professional.service_id:
                 flash("The service you were offering has been deleted. Please register for a new service.")
-                return redirect(url_for("prof_register"))
+                return redirect(url_for("professional.prof_register"))
 
-            return redirect(url_for("professional_dashboard"))
+            return redirect(url_for("professional.professional_dashboard"))
 
         elif user.role == "customer":
             if user.is_blocked:
