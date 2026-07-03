@@ -5,10 +5,10 @@
 {% endblock %}
 {% block content %}
 
-<h1 class="display-1 text-center mb-4">{{professional.fullname | title }} Details</h1>
-<h2 class="display-2 mb-4">Details:</h2>
+<h1 class="prof-fullname">{{professional.fullname }} Details</h1>
+<h2 class="prof-details">Details:</h2>
 
-<div class="table-responsive">
+<div class="prof-info">
     <div class="prof-profile-row">
         <span class="show-label">Professional ID</span>
         <span class="show-value">{{ professional.id }}</span>

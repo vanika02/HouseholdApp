@@ -306,3 +306,14 @@ h2.display-2 {
     transform: translateY(-5px);
     background-color: #BF3131;
 }
+
+/* professional show.html style */
+
+.prof-fullname {
+    display: block;
+    text-align: center;
+    margin-top: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #303841;
+}
