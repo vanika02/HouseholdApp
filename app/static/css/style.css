@@ -385,3 +385,32 @@ h2.display-2 {
     background-color: #454040;
     transition: 0.3s;
 }
+
+/* professional reject style */
+
+.rej-title {
+    /* display: block; */
+    text-align: center;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    color: #454040;
+}
+
+.rej-text {
+    text-align: center;
+    font-weight: 700;
+    color: #605B51;
+}
+
+.rej-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 15px 50px;
+    background-color: #DB1A1A;
+    font-weight: bold;
+    font-size: large;
+    border-radius: 13px;
+    color: #FFF6F6;
+}
