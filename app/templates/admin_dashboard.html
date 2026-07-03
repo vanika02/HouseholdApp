@@ -78,27 +78,31 @@ Admin Dashboard
             <td>{{ professional.service.name }}</td>
             <td>{{ professional.experience }}</td>
             <td>
-                <a href="{{ url_for('admin.show_professional', id=professional.id) }}" class="btn btn-primary">
+                <a href="{{ url_for('admin.show_professional', id=professional.id) }}" class="btn btn-primary mb-2">
                     <i class="fas fa-search"></i> Show
                 </a>
                 {% if not professional.user.is_verified and not professional.user.is_rejected %}
-                <a href="{{ url_for('admin.approve_professional', id=professional.id) }}" class="btn btn-primary">
+                <a href="{{ url_for('admin.approve_professional', id=professional.id) }}"
+                    class="btn btn-primary btn-sm mb-2">
                     <i class="fas fa-check"></i> Approve
                 </a>
                 {% endif %}
                 {% if professional.user.is_verified and not professional.user.is_rejected and not
                 professional.user.is_blocked %}
-                <a href="{{ url_for('admin.approve_professional', id=professional.id) }}" class="btn btn-success">
+                <a href="{{ url_for('admin.approve_professional', id=professional.id) }}"
+                    class="btn btn-success btn-sm mb-2">
                     <i class="fas fa-check"></i> Approved
                 </a>
                 {% endif %}
                 {% if not professional.user.is_rejected and not professional.user.is_blocked %}
-                <a href="{{ url_for('admin.reject_professional', id=professional.id) }}" class="btn btn-warning">
+                <a href="{{ url_for('admin.reject_professional', id=professional.id) }}"
+                    class="btn btn-warning btn-sm mb-2">
                     <i class="fas fa-times"></i> Reject
                 </a>
                 {% endif %}
                 {% if professional.user.is_rejected and not professional.user.is_blocked %}
-                <a href="{{ url_for('admin.reject_professional', id=professional.id) }}" class="btn btn-warning">
+                <a href="{{ url_for('admin.reject_professional', id=professional.id) }}"
+                    class="btn btn-warning btn-sm mb-2">
                     <i class="fas fa-times"></i> Rejected
                 </a>
                 {% endif %}
@@ -107,7 +111,7 @@ Admin Dashboard
                     <i class="fas fa-ban"></i> Blocked
                 </a>
                 {% else %}
-                <a href="{{ url_for('admin.block_professional', id=professional.id) }}" class="btn btn-danger">
+                <a href="{{ url_for('admin.block_professional', id=professional.id) }}" class="btn btn-danger btn-lg">
                     <i class="fas fa-ban"></i> Block
                 </a>
                 {% endif %}
