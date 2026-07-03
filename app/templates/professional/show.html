@@ -6,7 +6,7 @@
 {% block content %}
 
 <h1 class="prof-fullname">{{professional.fullname }} Details</h1>
-<h2 class="prof-details">Details:</h2>
+<h2 class="prof-details">Details</h2>
 
 <div class="prof-info">
     <div class="prof-profile-row">
@@ -41,8 +41,7 @@
 
     <div class="prof-profile-row">
         <span class="show-label">Document</span>
-        <a href="{{ url_for('static', filename='files/' + professional.document) }}" target="_blank"
-            class="btn btn-link">
+        <a href="{{ url_for('static', filename='files/' + professional.document) }}" target="_blank" class="prof-doc">
             View Document
         </a>
     </div>
@@ -64,25 +63,25 @@
             <i class="fas fa-check"></i> Approved
         </a>
         {% else %}
-        <a href="{{url_for('admin.approve_professional', id=professional.id)}}" class="btn btn-primary mt-2 ">
+        <a href="{{url_for('admin.approve_professional', id=professional.id)}}" class="btn btn-primary">
             <i class="fas fa-check"></i> Approve
         </a>
         {% endif %}
         {% if professional.is_rejected %}
-        <a href="" class="btn btn-warning mt-2">
+        <a href="" class="btn btn-warning">
             <i class="fas fa-times"></i> Rejected
         </a>
         {% elif not professional.is_rejected %}
-        <a href="{{url_for('admin.reject_professional', id=professional.id)}}" class="btn btn-warning mt-2">
+        <a href="{{url_for('admin.reject_professional', id=professional.id)}}" class="btn btn-warning">
             <i class="fas fa-times"></i> Reject
         </a>
         {% endif %}
         {%if professional.user.is_blocked %}
-        <a href="" class="btn btn-danger mt-2">
+        <a href="" class="btn btn-danger">
             <i class="fas fa-ban"></i> Blocked
         </a>
         {% else %}
-        <a href="{{url_for('admin.block_professional', id=professional.id)}}" class="btn btn-danger mt-2">
+        <a href="{{url_for('admin.block_professional', id=professional.id)}}" class="btn btn-danger">
             <i class="fas fa-ban"></i> Block
         </a>
         {% endif %}
@@ -152,7 +151,7 @@
         </tbody>
     </table> -->
 </div>
-<div style="margin-top: 50px; text-align: center;">
+<div style="margin: 50px; text-align: center;">
     <!-- Back to Dashboard Button -->
     <a href="{{ url_for('admin.admin_dashboard') }}">
         <button

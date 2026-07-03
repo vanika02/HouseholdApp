@@ -317,3 +317,42 @@ h2.display-2 {
     text-transform: uppercase;
     color: #303841;
 }
+
+.prof-details {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #303841;
+}
+
+.prof-info {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #E8F5BD;
+}
+
+
+.prof-profile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 0.5px solid #454040;
+}
+
+.show-label {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 700;
+}
+
+.show-value {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 700;
+}
+
+.prof-doc {
+    text-decoration: none;
+}
