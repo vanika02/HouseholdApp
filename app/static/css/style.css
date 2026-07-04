@@ -109,6 +109,7 @@ h1.display-1 {
     margin-top: 50px;
     /* Add space between navbar and heading */
     margin-bottom: 30px;
+    text-transform: uppercase;
 }
 
 

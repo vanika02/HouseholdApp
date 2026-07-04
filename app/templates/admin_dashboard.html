@@ -81,7 +81,7 @@ Admin Dashboard
                 <a href="{{ url_for('admin.show_professional', id=professional.id) }}" class="btn btn-primary mb-2">
                     <i class="fas fa-search"></i> Show
                 </a>
-                {% if not professional.user.is_verified and not professional.user.is_rejected %}
+                {% if not professional.user.is_verified and not professional.is_rejected %}
                 <a href="{{ url_for('admin.approve_professional', id=professional.id) }}"
                     class="btn btn-primary btn-sm mb-2">
                     <i class="fas fa-check"></i> Approve
@@ -94,13 +94,14 @@ Admin Dashboard
                     <i class="fas fa-check"></i> Approved
                 </a>
                 {% endif %}
-                {% if not professional.user.is_rejected and not professional.user.is_blocked %}
+                {% if not professional.is_rejected and not professional.user.is_blocked and not
+                professional.user.is_verified %}
                 <a href="{{ url_for('admin.reject_professional', id=professional.id) }}"
                     class="btn btn-warning btn-sm mb-2">
                     <i class="fas fa-times"></i> Reject
                 </a>
                 {% endif %}
-                {% if professional.user.is_rejected and not professional.user.is_blocked %}
+                {% if professional.is_rejected %}
                 <a href="{{ url_for('admin.reject_professional', id=professional.id) }}"
                     class="btn btn-warning btn-sm mb-2">
                     <i class="fas fa-times"></i> Rejected

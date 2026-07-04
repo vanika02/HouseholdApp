@@ -268,17 +268,14 @@ def approve_professional(id):
 @admin_required
 def reject_professional(id):
     professional = Professional.query.get(id)
+    # print(professional)
     if not professional:
         flash("Professional does not exist!")
         return redirect(url_for("admin.admin_dashboard"))
 
     user = User.query.get(professional.user_id)
-    
-    if request.method == "POST":
-        if not professional:
-            flash("Professional does not exist!")
-            return redirect(url_for("admin.admin_dashboard"))
 
+    if request.method == "POST":
         if user.is_blocked:
             flash("Professional is already blocked!")
             return redirect(url_for("admin.admin_dashboard"))
@@ -287,6 +284,11 @@ def reject_professional(id):
             flash("This professional is already approved and cannot be rejected.")
             return redirect(url_for("admin.admin_dashboard"))
         
+        if professional.is_rejected:
+            flash("Professional is already rejected.")
+            return redirect(url_for("admin.admin_dashboard"))
+
+
         professional.is_rejected = True
         db.session.commit()
         flash("Professional has been rejected.")
