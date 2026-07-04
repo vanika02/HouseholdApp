@@ -68,6 +68,7 @@ def prof_register():
             new_professional = Professional(user_id = new_user.id, email_id=email, fullname=fullname, address=address, pin_code = pin, document=filename, service_price=service_price,experience=experience, description=description, service_id=service_id, is_rejected=False, age=age)
             db.session.add(new_professional)
             db.session.commit()
+            flash("Registration successfull, Please wait for Admin Approval!")
             return redirect(url_for('auth.login'))
 
         except Exception as e:
