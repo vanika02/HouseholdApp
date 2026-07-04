@@ -119,8 +119,26 @@ h2.display-2 {
     color: #007bff;
     /* Blue color for sub-headings */
     font-size: 2rem;
-    margin-top: 40px;
+    margin-top: 50px;
     margin-bottom: 20px;
+}
+
+/* styling the add new service button */
+.add-service-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    background-color: #237227;
+    padding: 10px;
+    text-decoration: none;
+    font-size: medium;
+    font-weight: 700;
+    color: #FFF6F6;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.add-service-btn:hover {
+    background-color: #DE1A58;
 }
 
 /* Styling the tables */
