@@ -1,5 +1,5 @@
-from flask import Blueprint, request, render_template, flash, redirect, url_for, current_app
-from app.models import User, Service, Professional
+from flask import Blueprint, request, render_template, flash, redirect, url_for, current_app, session
+from app.models import User, Service, Professional, Service_request
 from app.extensions import db
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
