@@ -12,7 +12,7 @@ def admin_required(func):
     def inner(*args, **kwargs):
         if 'user_id' not in session:
             flash('Please login to continue')
-            return redirect(url_for('login'))
+            return redirect(url_for('auth.login'))
         user = User.query.get(session['user_id'])
         if not user.role == "admin":
             flash("You are not authorized to access to this page!")
