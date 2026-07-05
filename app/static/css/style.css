@@ -433,3 +433,17 @@ h2.display-2 {
     border-radius: 13px;
     color: #FFF6F6;
 }
+
+/* professional profile page */
+
+.prof-card {
+    width: 90%;
+    display: block;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background-color: #FF2929;
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 0.5px;
+}
