@@ -1,47 +1,48 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    Profile
+Profile
 {% endblock %}
 
 {% block content %}
-    
+
 <h2 class="display-2">{{professional.fullname | title}} Profile</h2>
 <div class="profile-pic">
     <img src="https://api.dicebear.com/9.x/lorelei/svg?seed={{user.username}}" width="100" alt="">
 </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th> ID</th>
-                    <th>Full Name</th>
-                    <th>Username</th>
-                    <th>Email ID</th>
-                    <th>Address</th>
-                    <th>Service Offered</th>
-                    <th>Service Description</th>
-                    <th>Experience (in yrs)</th>
-                    <th>Document</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                    <tr>
-                        <td>{{ professional.id }}</td>
-                        <td>{{ professional.fullname | title }}</td>
-                        <td>{{user.username}}</td>
-                        <td>{{professional.email_id}}</td>
-                        <td>{{professional.address}}</td>
-                        <td>{{ professional.service.name }}</td>
-                        <td>{{professional.description}}</td>
-                        <td>{{ professional.experience }}</td>
-                        <td>
-                            <a href="{{ url_for('static', filename='files/' + professional.document) }}" target="_blank">Document</a>
-                        </td>
-                        <td>
-                            <a href="{{ url_for('edit_professional') }}" class="btn btn-primary">Edit</a>
-                        </td>
-                    </tr>
-            </tbody>
-        </table>
+<table class="table">
+    <thead>
+        <tr>
+            <th> ID</th>
+            <th>Full Name</th>
+            <th>Username</th>
+            <th>Email ID</th>
+            <th>Address</th>
+            <th>Service Offered</th>
+            <th>Service Description</th>
+            <th>Experience (in yrs)</th>
+            <th>Document</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ professional.id }}</td>
+            <td>{{ professional.fullname | title }}</td>
+            <td>{{user.username}}</td>
+            <td>{{professional.email_id}}</td>
+            <td>{{professional.address}}</td>
+            <td>{{ professional.service.name }}</td>
+            <td>{{professional.description}}</td>
+            <td>{{ professional.experience }}</td>
+            <td>
+                <a href="{{ url_for('static', filename='files/' + professional.document) }}"
+                    target="_blank">Document</a>
+            </td>
+            <td>
+                <a href="{{ url_for('professional.edit_professional') }}" class="btn btn-primary">Edit</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
 {% endblock %}
