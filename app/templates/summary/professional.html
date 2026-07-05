@@ -1,91 +1,92 @@
 <div>
-    <div style="margin-top: 50px; text-align: center;">
-      <h1>Number of service request</h1>
+  <div style="margin-top: 50px; text-align: center;">
+    <h1>Number of service request</h1>
     <canvas id="statusChart" width="600" height="400"></canvas>
   </div>
-  
+
   <div>
     <div style="margin-top: 50px; text-align: center;">
       <h1>Ratings</h1>
-    <canvas id="ratingChart"></canvas>
-  </div>
-  
-  <style>
-    #statusChart, #ratingChart {
-      max-width: 600px;
-      max-height: 400px;
-      margin: 0 auto;
-      display: block;
-    }
-  </style>
+      <canvas id="ratingChart"></canvas>
+    </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    // Bar Chart for Service Request Statuses
-    const statusCtx = document.getElementById('statusChart');
-    const statusLabels = JSON.parse('{{ status_labels | tojson | safe }}');
-    const statusValues = JSON.parse('{{ status_values | tojson | safe }}');
-  
-    new Chart(statusCtx, {
-      type: 'bar',
-      data: {
-        labels: statusLabels,
-        datasets: [{
-          label: 'Number of Service Requests',
-          data: statusValues,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)', // Pending
-            'rgba(54, 162, 235, 0.2)', // Accepted
-            'rgba(75, 192, 192, 0.2)', // Completed
-            'rgba(153, 102, 255, 0.2)', // Closed
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-          ],
-          borderWidth: 1,
-        }],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
+    <style>
+      #statusChart,
+      #ratingChart {
+        max-width: 600px;
+        max-height: 400px;
+        margin: 0 auto;
+        display: block;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Bar Chart for Service Request Statuses
+      const statusCtx = document.getElementById('statusChart');
+      const statusLabels = JSON.parse('{{ status_labels | tojson | safe }}');
+      const statusValues = JSON.parse('{{ status_values | tojson | safe }}');
+
+      new Chart(statusCtx, {
+        type: 'bar',
+        data: {
+          labels: statusLabels,
+          datasets: [{
+            label: 'Number of Service Requests',
+            data: statusValues,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)', // Pending
+              'rgba(54, 162, 235, 0.2)', // Accepted
+              'rgba(75, 192, 192, 0.2)', // Completed
+              'rgba(153, 102, 255, 0.2)', // Closed
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+            ],
+            borderWidth: 1,
+          }],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
           },
         },
-      },
-    });
-  
-    // Pie Chart for Customer Ratings
-    const ratingCtx = document.getElementById('ratingChart');
-    const ratingLabels = JSON.parse('{{ rating_labels | tojson | safe }}');
-    const ratingCounts = JSON.parse('{{ rating_counts | tojson | safe }}');
-  
-    new Chart(ratingCtx, {
-      type: 'pie',
-      data: {
-        labels: ratingLabels,
-        datasets: [{
-          data: ratingCounts,
-          backgroundColor: [
-            'rgb(255, 99, 132)', // 1 Star
-            'rgb(255, 159, 64)', // 2 Stars
-            'rgb(255, 205, 86)', // 3 Stars
-            'rgb(75, 192, 192)', // 4 Stars
-            'rgb(54, 162, 235)', // 5 Stars
-          ],
-          hoverOffset: 4,
-        }],
-      },
-    });
-  </script>
-  <div style="margin-top: 50px; text-align: center;">
-    <!-- Back to Dashboard Button -->
-    <a href="{{ url_for('professional_dashboard') }}">
-        <button style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
-            Back to Dashboard
+      });
+
+      // Pie Chart for Customer Ratings
+      const ratingCtx = document.getElementById('ratingChart');
+      const ratingLabels = JSON.parse('{{ rating_labels | tojson | safe }}');
+      const ratingCounts = JSON.parse('{{ rating_counts | tojson | safe }}');
+
+      new Chart(ratingCtx, {
+        type: 'pie',
+        data: {
+          labels: ratingLabels,
+          datasets: [{
+            data: ratingCounts,
+            backgroundColor: [
+              'rgb(255, 99, 132)', // 1 Star
+              'rgb(255, 159, 64)', // 2 Stars
+              'rgb(255, 205, 86)', // 3 Stars
+              'rgb(75, 192, 192)', // 4 Stars
+              'rgb(54, 162, 235)', // 5 Stars
+            ],
+            hoverOffset: 4,
+          }],
+        },
+      });
+    </script>
+    <div style="margin-top: 50px; text-align: center;">
+      <!-- Back to Dashboard Button -->
+      <a href="{{ url_for('professional.professional_dashboard') }}">
+        <button
+          style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+          Back to Dashboard
         </button>
-    </a>
-  </div>
-  
+      </a>
+    </div>
