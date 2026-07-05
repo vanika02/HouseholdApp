@@ -46,7 +46,7 @@
                     {% elif session.get('user_role') == 'customer' %}
                         {{ url_for('customer.customer_dashboard') }}
                     {% elif session.get('user_role') == 'professional' %}
-                        {{ url_for('professional_dashboard') }}
+                        {{ url_for('professional.professional_dashboard') }}
                     {% endif %}
                   " class="btn btn-outline-danger">
                         clear
