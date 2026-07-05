@@ -51,12 +51,14 @@ Welcome Admin
                     </a>
                     {% endif %}
                     {% if service_request.status == "accepted" %}
-                    <a href="{{url_for('complete_request', id=service_request.id)}}" class="btn btn-primary">
+                    <a href="{{url_for('professional.complete_request', id=service_request.id)}}"
+                        class="btn btn-primary">
                         <i class="fas fa-check"></i>
                         Complete
                     </a>
                     {% elif service_request.status == "closed" %}
-                    <a href="{{url_for('complete_request', id=service_request.id)}}" class="btn btn-success">
+                    <a href="{{url_for('professional.complete_request', id=service_request.id)}}"
+                        class="btn btn-success">
                         <i class="fas fa-check"></i>
                         Closed
                     </a>
@@ -68,5 +70,5 @@ Welcome Admin
     </table>
 </div>
 
-<a href="{{url_for('logout')}}" class="btn btn-outline-danger">Logout</a>
+<a href="{{url_for('auth.logout')}}" class="btn btn-outline-danger">Logout</a>
 {% endblock %}
