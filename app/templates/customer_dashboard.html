@@ -25,7 +25,7 @@ Customer Dashboard
           <p class="card-text"><strong>Ratings: </strong>{{ professionals_with_average_rating[professional]}} / 5</p>
           <p class="card-text"><strong>Price: <span>&#8377; </span></strong>{{ professional.service_price +
             service.base_price }}</p>
-          <a href="{{ url_for('book_service', professional_id=professional.id, service_id=service.id) }}"
+          <a href="{{ url_for('customer.book_service', professional_id=professional.id, service_id=service.id) }}"
             class="btn btn-primary">Book Service</a>
         </div>
       </div>
@@ -58,7 +58,7 @@ Customer Dashboard
         <td>{{ service_request.status | title }}</td>
         {% if service_request.status == "completed" %}
         <td>
-          <a href="{{ url_for('close_request', id=service_request.id) }}" class="btn btn-warning">
+          <a href="{{ url_for('customer.close_request', id=service_request.id) }}" class="btn btn-warning">
             <i class="fas fa-check"></i> Close
           </a>
         </td>
