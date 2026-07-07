@@ -90,8 +90,12 @@ def customer_dashboard():
         }
         for service in Service.query.all()
     ]
-
     customer = Customer.query.filter_by(user_id=user.id).first()
+    
+    if not customer:
+        flash("Customer not found!")
+        return redirect(url_for("auth.login"))
+
     service_requests = Service_request.query.filter_by(customer_id=customer.id).all()
 
     professionals_with_ratings = {}
