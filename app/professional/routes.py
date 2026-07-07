@@ -217,7 +217,7 @@ def edit_professional():
         
 
 
-        professional.email = email
+        professional.email_id = email
         professional.address = address
         professional.pin_code = pin_code
         professional.description = description
