@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash
 from app.models import User, Customer, Service, Service_request
 from app.extensions import db
 from functools import wraps
+from datetime import datetime, date
 
 cust_router = Blueprint("customer", __name__)
 
@@ -91,7 +92,7 @@ def customer_dashboard():
         for service in Service.query.all()
     ]
     customer = Customer.query.filter_by(user_id=user.id).first()
-    
+
     if not customer:
         flash("Customer not found!")
         return redirect(url_for("auth.login"))
