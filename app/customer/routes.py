@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, flash, redirect, url_for, session
 from werkzeug.security import generate_password_hash
-from app.models import User, Customer, Service, Service_request
+from app.models import User, Customer, Service, Service_request, Professional
 from app.extensions import db
 from functools import wraps
 from datetime import datetime, date
