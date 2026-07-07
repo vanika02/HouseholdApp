@@ -226,7 +226,7 @@ def edit_professional():
 
         db.session.commit()
         flash("Profile updated successfully")
-        return redirect(url_for("professional_dashboard"))
+        return redirect(url_for("professional.professional_dashboard"))
 
     return render_template("professional_edit.html",  user=user, professional=professional)
 
