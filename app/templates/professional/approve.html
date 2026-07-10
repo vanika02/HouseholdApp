@@ -27,7 +27,8 @@
                 <div>
                     <form method="POST" action="{{ url_for('professional.accept_request', id=service_request.id) }}">
                         <button type="submit" class="btn btn-primary">Accept Request</button>
-                        <a href="{{ url_for('professional_dashboard') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ url_for('professional.professional_dashboard') }}"
+                            class="btn btn-secondary">Cancel</a>
                     </form>
                 </div>
             </td>
