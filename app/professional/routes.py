@@ -257,10 +257,10 @@ def accept_request(id):
 
     if not user_id:
         flash("Please login to continue!")
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
     if user_role != 'professional':
         flash("Access denied: only verified professiaonl can accpet/reject service requests.")
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
     
     user = User.query.get(user_id)
     professional = Professional.query.filter_by(user_id=user_id).first()
@@ -268,11 +268,11 @@ def accept_request(id):
 
     if not service_request:
         flash("service request does not exist!")
-        return redirect("url_for('professional_dashboard)")
+        return redirect("url_for('professional.professional_dashboard)")
     
     if service_request.professional_id != professional.id:
         flash("You are unauthorized to approve this request!")
-        return redirect(url_for("professional_dashboard"))
+        return redirect(url_for("professional.professional_dashboard"))
     
     if request.method == "POST":
         
@@ -281,7 +281,7 @@ def accept_request(id):
 
         if same_day_requests:
             flash("You have already accepted a service request for this date!")
-            return redirect(url_for("professional_dashboard"))
+            return redirect(url_for("professional.professional_dashboard"))
 
         service_request.status = "accepted"
 
@@ -293,7 +293,7 @@ def accept_request(id):
 
         db.session.commit()
         flash("Request has been Accepted successfully and other pending requests for the same date have been rejected!")
-        return redirect(url_for("professional_dashboard"))
+        return redirect(url_for("professional.professional_dashboard"))
     
     return render_template("/professional/approve.html", professional=professional, service_request=service_request) 
 
