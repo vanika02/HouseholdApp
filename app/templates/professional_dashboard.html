@@ -44,7 +44,7 @@ Professional Dashboard
                     </a>
                     {% elif service_request.status != "rejected" and service_request.status != "closed" and
                     service_request.status != "completed"%}
-                    <a href="{{url_for('reject_request', service_request_id=service_request.id)}}"
+                    <a href="{{url_for('professional.reject_request', service_request_id=service_request.id)}}"
                         class="btn btn-danger">
                         <i class="fas fa-warning"></i>
                         Reject
