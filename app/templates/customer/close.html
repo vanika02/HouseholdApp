@@ -1,34 +1,35 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    Service Remarks
+Service Remarks
 {% endblock %}
 
 {% block content %}
-    <h2>Service Remarks</h2>
-    <p>Request ID: {{service_request.id}}</p>
-    <form method="post" class="form-group"  action="{{url_for('close_request', id=service_request.id)}}">
-        <div>
-            <label for="service" class="form-label">Service Name:</label>
-            <input type="text" class="form-control" id="service"  value="{{ service_request.service.name }}" readonly>
-            
-            <label for="professional" class="form-label">Professioanl Name:</label>
-            <input type="text" class="form-control" id="professional"  value="{{ service_request.professional.fullname }}" readonly>
+<h2>Service Remarks</h2>
+<p>Request ID: {{service_request.id}}</p>
+<form method="post" class="form-group" action="{{url_for('customer.close_request', id=service_request.id)}}">
+    <div>
+        <label for="service" class="form-label">Service Name:</label>
+        <input type="text" class="form-control" id="service" value="{{ service_request.service.name }}" readonly>
 
-            <label for="date_of_completion" class="form-label">Date Of Completion</label>
-            <input type="date" class="form-control" id="date_of_completion" name="date_of_completion" required>
-        </div>  
-        <div>
-            <label class="form-label" style="text-align: center; margin-top: 20px;">Rating:</label>
-            <div style="display: inline-block; text-align: center;">
-                <input type="radio" name="rating" value="1" required> 1 Star
-                <input type="radio" name="rating" value="2"> 2 Stars
-                <input type="radio" name="rating" value="3"> 3 Stars
-                <input type="radio" name="rating" value="4"> 4 Stars
-                <input type="radio" name="rating" value="5"> 5 Stars
-            </div>
+        <label for="professional" class="form-label">Professioanl Name:</label>
+        <input type="text" class="form-control" id="professional" value="{{ service_request.professional.fullname }}"
+            readonly>
+
+        <label for="date_of_completion" class="form-label">Date Of Completion</label>
+        <input type="date" class="form-control" id="date_of_completion" name="date_of_completion" required>
+    </div>
+    <div>
+        <label class="form-label" style="text-align: center; margin-top: 20px;">Rating:</label>
+        <div style="display: inline-block; text-align: center;">
+            <input type="radio" name="rating" value="1" required> 1 Star
+            <input type="radio" name="rating" value="2"> 2 Stars
+            <input type="radio" name="rating" value="3"> 3 Stars
+            <input type="radio" name="rating" value="4"> 4 Stars
+            <input type="radio" name="rating" value="5"> 5 Stars
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>    
-        <a href="{{ url_for('customer_dashboard') }}" class="btn btn-secondary">Cancel</a> 
-    </form>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="{{ url_for('customer.customer_dashboard') }}" class="btn btn-secondary">Cancel</a>
+</form>
 {% endblock %}
