@@ -57,8 +57,7 @@ Professional Dashboard
                         Complete
                     </a>
                     {% elif service_request.status == "closed" %}
-                    <a href="{{url_for('professional.complete_request', id=service_request.id)}}"
-                        class="btn btn-success">
+                    <a href="{{url_for('professional.professional_dashboard')}}" class="btn btn-success">
                         <i class="fas fa-check"></i>
                         Closed
                     </a>
