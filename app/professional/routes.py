@@ -151,12 +151,12 @@ def complete_request(id):
 
     if service_request.professional_id != professional.id:
         flash("Unauthorizerd access. Please login to continue.")
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
     
     service_request.status = "completed"
     db.session.commit()
     flash("Service marked as completed. Awating customer confirmation.")
-    return redirect(url_for("professional_dashboard"))
+    return redirect(url_for("professional.professional_dashboard"))
 
 
 @prof_router.route("/summary/prodessional")
