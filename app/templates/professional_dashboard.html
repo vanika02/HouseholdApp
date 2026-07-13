@@ -6,7 +6,37 @@ Professional Dashboard
 
 {% block content %}
 {% include 'searchbar.html' with context %}
-<h1 class="display-1">Welcome {{professional.fullname}}</h1>
+<div class="prof-dash">
+    <h1 class="display-1">Welcome {{professional.fullname}}</h1>
+    <h2 class="disply-2">Service Requests</h2>
+
+    <div class="prof-dash-detail">
+
+        <div class="prof-dash-row">
+            <span class="dash-label">Service Request ID</span>
+            <span class="dash-value"></span>
+        </div>
+
+        <div class="prof-dash-row">
+            <span class="dash-label"></span>
+            <span class="dash-value"></span>
+        </div>
+
+        <div class="prof-dash-row">
+            <span class="dash-label"></span>
+            <span class="dash-value"></span>
+        </div>
+
+        <div class="prof-dash-row">
+            <span class="dash-label"></span>
+            <span class="dash-value"></span>
+        </div>
+
+    </div>
+</div>
+
+
+
 <div>
     <h2 class="disply-2">Service Requests</h2>
     <table class="table">
